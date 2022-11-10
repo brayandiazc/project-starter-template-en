@@ -105,8 +105,8 @@ For all available versions, check out the [tags in this repository](https://gith
 
 People who have contributed to the project:
 
-* **Brayan DIaz C** - *Initial Work* - [brayandiazc](https://github.com/brayandiazc)
-* **Gloria Salcedo** - * Documentation
+* **Brayan Diaz C** - *Initial Work* - [brayandiazc](https://brayandiazc.com)
+* **Gloria Salcedo** - *Documentation* - [brayandiazc](https://loha.com)
 
 You can also look at the list of all [contributors](https://github.com/your/project/contributors) who have participated in this project.
 
