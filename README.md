@@ -1,128 +1,133 @@
-# Title of the project
+# Title of the Project
 
 Self-explanatory name of the project, with a short description.
 
 ## Description
 
-More detailed and technical description of the project
+A more detailed and technical description of the project, including its main features, its purpose and how it works.
 
 ## Badges
 
-Images that convey metadata, for example if all the tests are passing or not in the project.
+Badges displaying metadata such as build status, test coverage, dependency status, etc.
 
 ## Visuals
 
-Screenshots, videos or GIFs of the project.
+Screenshots, videos, or GIFs demonstrating what the project does and how to use it.
 
-## Starting 🚀
+## Getting Started 🚀
 
-Instructions to obtain a copy of the project and implement it on a local machine for development and testing.
+These instructions will guide you through getting a copy of this project up and running on your local machine for development and testing purposes.
 
-### Pre-requisites 📋
+### Prerequisites 📋
 
-Dependencies to run the project:
+List of software and tools, including versions, that you need to install and run this project:
 
-* Operating system Ver. XXXX
-* Programming language Ver. XXXX
-* Framework and its version Ver. XXXX
-* Database Ver. XXXX
-* etc
+- Operating System (e.g., Ubuntu 20.04, Windows 10)
+- Programming language (e.g., Python 3.8)
+- Framework (e.g., Django 3.1)
+- Database (e.g., PostgreSQL 12)
+- Others...
 
 ### Installation 🔧
 
-Steps to install and run the project locally
+A step-by-step guide on how to set up the development environment and how to install all dependencies.
 
 ```bash
-step 1
+# step 1
 ```
 
-And repeat
+And so on...
 
 ```bash
-step 2
+# step 2
 ```
 
-## Running the tests ⚙️
+## Running the Tests ⚙️
 
-Description of how to run the tests:
+Instructions and examples for running the tests suite.
 
 ```bash
-give an example
+# give an example
 ```
 
-### Analyze end-to-end tests 🔩
+### End-to-End Testing 🔩
 
-Explain the reasons for the tests, what they verify and how to interpret the results
+Explain what these tests cover, why they're important, and how to interpret their results.
 
-### Coding style tests ⌨️
+### Coding Style Tests ⌨️
 
-Description of style tests
+Description and examples of the style tests you're using.
 
 ```bash
-give an example
+# give an example
 ```
 
 ## Deployment 📦
 
-Description of how to bring the project to production
+Instructions on how to deploy this on a live system or production environment.
 
-## Built with 🛠️
+## Built With 🛠️
 
-Tools used to create the project
+Explain which technologies you used to build this project. Here are some examples:
 
-* [Ruby](https://www.ruby-lang.org/en/) - Programming language used
-* [Ruby on Rails](https://rubyonrails.org) - The web framework used
-* [Ruby gems](https://rubygems.org) - Dependency manager
-* [Postgresql](https://www.postgresql.org) - Database
-* [Bulma IO](https://bulma.io) - Css Framework
+- [Ruby](https://www.ruby-lang.org/en/) - The language used
+- [Ruby on Rails](https://rubyonrails.org) - The web framework used
+- [Ruby gems](https://rubygems.org) - Dependency management
+- [Postgresql](https://www.postgresql.org) - Database system
+- [Bulma IO](https://bulma.io) - CSS framework
 
-## Contribute 🖇️
+## Contributing 🖇️
 
-Please read [CONTRIBUTING.md](https://gist.github.com/brayandiazc/xxxxxx) for details of our code of conduct, and the process for submitting pull requests.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated. Please read [CONTRIBUTING.md](https://gist.github.com/brayandiazc/xxxxxx) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Wiki 📖
 
-Find more information on how to use it in [Wiki](https://github.com/your/project/wiki)
+You can find much more about how to use this project in our [Wiki](https://github.com/your/project/wiki)
 
-## Medium
+## Support
 
-Ways to get help:
-
-* Forum
-* Email
-* Group
+If you have any problem or suggestion please open an issue [here](https://github.com/your/project/issues).
 
 ## Roadmap
 
-Ideas for future versions.
+Ideas, planned improvements and future updates for the current project.
 
 ## Versioning 📌
 
-Version control system [Git](https://git-scm.com).
-For all available versions, check out the [tags in this repository](https://github.com/tu/proyecto/tags).
+We use [Git](https://git-scm.com) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
 ## Authors ✒️
 
-People who have contributed to the project:
+- **Brayan Diaz C** - _Initial work_ - [Brayan Diaz C](https://github.com/brayandiazc)
 
-* **Brayan Diaz C** - *Initial Work* - [brayandiazc](https://brayandiazc.com)
-* **Gloria Salcedo** - *Documentation* - [brayandiazc](https://loha.com)
-
-You can also look at the list of all [contributors](https://github.com/your/project/contributors) who have participated in this project.
+See also the list of [contributors](https://github.com/your/project/contributors) who have participated in this project.
 
 ## License 📄
 
-This project is under the License (Your License) - see the file [LICENSE.md] (LICENSE.md) for details
+This project is licensed under the XYZ License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Expressions of Gratitude 🎁
 
-This readme file is developed using as reference the following projects:
+We're grateful for the community's contributions to this project. If you found any value in this project or you want to contribute, here's what you can do:
 
-* [README-español.md](https://gist.github.com/Villanuevand/6386899f70346d4580c723232524d35a) - created by [Andrés Villanueva](https://gist.github.com/Villanuevand)
-* [Make a README](https://www.makeareadme.com) - created by [Danny Guo](https://github.com/dguo)
-* Invite a beer 🍺 or a coffee ☕ to someone on the team.
-* Give thanks publicly 🤓.
-* etc.
+- Share this project with others
+- Invite us a coffee ☕
+- Start a new issue or contribute with a PR
+- Show your appreciation by saying thank you in a new issue.
 
 ---
+
+## Additional Tips 📝
+
+Here are some extra tips for making the most out of your README:
+
+- Keep each section as concise as possible. Avoid unnecessary fluff as it can be overwhelming for the reader.
+- Ensure your installation, testing, and deployment instructions are detailed and accurate. If there are additional steps the reader needs to take (like installing extra dependencies), make sure to include them.
+- Visuals (images, GIFs) are very helpful in quickly conveying what your project does and how to use it. If you can, include screenshots of your application in action or GIFs demonstrating its use.
+- The friendly and welcoming tone you use in your README is excellent. It helps to make your project more welcoming for contributors.
+
+Remember, a good README is crucial to making your project appealing and accessible to other developers. Good luck with your project!
+
+---
+
 ⌨️ with ❤️ by [Brayan Diaz C](https://github.com/brayandiazc) 😊
