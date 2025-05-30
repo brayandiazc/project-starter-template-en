@@ -5,21 +5,15 @@ A self-explanatory name for the project, with a brief and clear description of w
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-95%25-blue)
 
----
-
 ## 🧠 Description
 
 A more detailed and technical description of the project, including its main features, purpose, and how it works.
-
----
 
 ## 🖼️ Visuals
 
 | Main View             | Key Feature                 |
 | --------------------- | --------------------------- |
 | ![main](img/main.png) | ![feature](img/feature.gif) |
-
----
 
 ## 🚀 Getting Started
 
@@ -54,8 +48,6 @@ cp .env.example .env
 python main.py
 ```
 
----
-
 ## 🧪 Running Tests
 
 ```bash
@@ -74,8 +66,6 @@ flake8 .
 black --check .
 ```
 
----
-
 ## 📦 Deployment
 
 To deploy this project in a production environment:
@@ -85,8 +75,6 @@ To deploy this project in a production environment:
 - Run migrations and load initial data
 - Set up environment variables in production
 
----
-
 ## 🛠️ Built With
 
 - [Python](https://www.python.org/) - Programming language
@@ -94,16 +82,12 @@ To deploy this project in a production environment:
 - [PostgreSQL](https://www.postgresql.org/) - Database system
 - [Docker](https://www.docker.com/) - Containerization
 
----
-
 ## 🛣️ Roadmap
 
 - [ ] Add social media authentication
 - [ ] Improve performance with caching
 - [ ] Add responsive UI
 - [ ] Advanced admin panel
-
----
 
 ## 🖇️ Contributing
 
@@ -119,19 +103,13 @@ Contributions make the open-source community such an amazing place to learn, ins
 
 Please read [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details on the process.
 
----
-
 ## 📖 Wiki
 
 You can find more documentation and guides in our [Wiki](https://github.com/your/project/wiki)
 
----
-
 ## 🛟 Support
 
 If you have any issues or suggestions, please open an issue [here](https://github.com/your/project/issues).
-
----
 
 ## 📌 Versioning
 
@@ -139,21 +117,15 @@ We use [Git](https://git-scm.com) for version control and follow [Semantic Versi
 
 Check out the [tags](https://github.com/your/project/tags) for available versions.
 
----
-
 ## ✒️ Authors
 
 - **Brayan Diaz C** – _Initial work_ – [Brayan Diaz C](https://github.com/brayandiazc)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
----
-
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE.md).
-
----
 
 ## ❤️ Support Us
 
@@ -163,8 +135,6 @@ If you like this project and want to support its development, you can do so here
 - [Ko-fi](https://ko-fi.com/brayandiazc)
 - [Patreon](https://patreon.com/brayandiazc)
 
----
-
 ## 🎁 Acknowledgements
 
 We are grateful for community contributions to this project. If you found value in it, here are some things you can do:
@@ -173,7 +143,5 @@ We are grateful for community contributions to this project. If you found value 
 - Buy us a coffee ☕
 - Open an issue or PR 🙌
 - Leave a thank you comment 💬
-
----
 
 ⌨️ with ❤️ by [Brayan Diaz C](https://github.com/brayandiazc) 😊
