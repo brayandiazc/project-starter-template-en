@@ -1,7 +1,7 @@
-# Roadmap — [NOMBRE_DEL_PROYECTO]
+# Roadmap — [PROJECT_NAME]
 
 > Product status and direction. Living document.
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Legend
 
@@ -20,16 +20,16 @@
 
 ## By Version / Phase
 
-### v0.1 — [NOMBRE / OBJETIVO]
+### v0.1 — [NAME / GOAL]
 
 - [ ] [Goal or deliverable].
 - [ ] [Goal or deliverable].
 
-### v0.2 — [NOMBRE / OBJETIVO]
+### v0.2 — [NAME / GOAL]
 
 - [ ] [Goal or deliverable].
 
-### v1.0 — [NOMBRE / OBJETIVO]
+### v1.0 — [NAME / GOAL]
 
 - [ ] [Goal or deliverable].
 

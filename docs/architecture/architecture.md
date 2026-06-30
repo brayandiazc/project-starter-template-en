@@ -1,11 +1,11 @@
-# [NOMBRE_DEL_PROYECTO] — Architecture
+# [PROJECT_NAME] — Architecture
 
 > High-level view of how the system is built and how responsibilities are
 > distributed. For the actual stack (versions, libraries) see
 > [`stack.md`](stack.md). For the business see
 > [`../product/business-model.md`](../product/business-model.md).
 >
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Diagram
 
@@ -36,18 +36,18 @@ graph TD
 
 ## Components
 
-| Component      | Responsibility                                | Technology   |
-| -------------- | --------------------------------------------- | ------------ |
-| [COMPONENTE_1] | [What it does and what it is responsible for] | [TECNOLOGÍA] |
-| [COMPONENTE_2] | [What it does and what it is responsible for] | [TECNOLOGÍA] |
-| [COMPONENTE_3] | [What it does and what it is responsible for] | [TECNOLOGÍA] |
+| Component     | Responsibility                                | Technology   |
+| ------------- | --------------------------------------------- | ------------ |
+| [COMPONENT_1] | [What it does and what it is responsible for] | [TECHNOLOGY] |
+| [COMPONENT_2] | [What it does and what it is responsible for] | [TECHNOLOGY] |
+| [COMPONENT_3] | [What it does and what it is responsible for] | [TECHNOLOGY] |
 
 ## Key decisions
 
 | Decision     | Reason            |
 | ------------ | ----------------- |
-| [DECISIÓN_1] | [Why it was made] |
-| [DECISIÓN_2] | [Why it was made] |
+| [DECISION_1] | [Why it was made] |
+| [DECISION_2] | [Why it was made] |
 
 > The detail and alternatives for each relevant decision are recorded as
 > ADRs in [`../decisions/`](../decisions/README.md).

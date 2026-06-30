@@ -1,14 +1,14 @@
 # Authentication and authorization conventions
 
-> Cross-cutting authentication and authorization rules in [NOMBRE_DEL_PROYECTO].
+> Cross-cutting authentication and authorization rules in [PROJECT_NAME].
 > For how auth works in this project see
 > [`../architecture/auth.md`](../architecture/auth.md).
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Stack
 
-- **Authentication**: [MECANISMO / LIBRERÍA].
-- **Authorization**: [MECANISMO / LIBRERÍA].
+- **Authentication**: [MECHANISM / LIBRARY].
+- **Authorization**: [MECHANISM / LIBRARY].
 - **Password hashing**: [bcrypt / argon2 / …].
 
 ## Rules
@@ -36,7 +36,7 @@ if not current_user.can?(:action, resource)
 ## Useful commands
 
 ```bash
-[COMANDO_RELEVANTE]
+[RELEVANT_COMMAND]
 ```
 
 ## References

@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Project Documentation
-    url: "[URL_REPOSITORIO]/wiki"
+    url: "[REPOSITORY_URL]/wiki"
     about: Check the full project documentation
   - name: Community Discussions
-    url: "[URL_REPOSITORIO]/discussions"
+    url: "[REPOSITORY_URL]/discussions"
     about: Join the discussions to ask general questions

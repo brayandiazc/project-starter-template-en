@@ -1,7 +1,7 @@
-# [NOMBRE_DEL_PROYECTO] — Business Model
+# [PROJECT_NAME] — Business Model
 
 > Framework: **Lean Canvas**. Describes why the project exists and how it creates value.
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## 1. Problem
 
@@ -11,10 +11,10 @@
 
 ## 2. Customer Segments
 
-| Segment      | Description    | Notes                 |
-| ------------ | -------------- | --------------------- |
-| [SEGMENTO_1] | [Who they are] | [Early adopter? ICP?] |
-| [SEGMENTO_2] | [Who they are] |                       |
+| Segment     | Description    | Notes                 |
+| ----------- | -------------- | --------------------- |
+| [SEGMENT_1] | [Who they are] | [Early adopter? ICP?] |
+| [SEGMENT_2] | [Who they are] |                       |
 
 - **Ideal customer (ICP)**: [Description of the ideal customer].
 - **Early adopters**: [Who you target first].
@@ -28,8 +28,8 @@
 
 | Module / Capability | What it solves         |
 | ------------------- | ---------------------- |
-| [MÓDULO_1]          | [Problem it addresses] |
-| [MÓDULO_2]          | [Problem it addresses] |
+| [MODULE_1]          | [Problem it addresses] |
+| [MODULE_2]          | [Problem it addresses] |
 
 ## 5. Channels
 
@@ -37,10 +37,10 @@
 
 ## 6. Revenue Model
 
-| Plan     | Price    | What's included    |
-| -------- | -------- | ------------------ |
-| [PLAN_1] | [PRECIO] | [Quota / features] |
-| [PLAN_2] | [PRECIO] | [Quota / features] |
+| Plan     | Price   | What's included    |
+| -------- | ------- | ------------------ |
+| [PLAN_1] | [PRICE] | [Quota / features] |
+| [PLAN_2] | [PRICE] | [Quota / features] |
 
 - **Billing logic**: [monthly/annual, taxes, etc.].
 

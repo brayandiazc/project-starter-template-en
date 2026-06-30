@@ -1,16 +1,16 @@
 # Branding conventions
 
-> Visual identity and brand asset management for [NOMBRE_DEL_PROYECTO].
+> Visual identity and brand asset management for [PROJECT_NAME].
 > For UI tokens and components see [`design-system.md`](design-system.md).
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Logos
 
 | Asset              | Source file        | Use                      |
 | ------------------ | ------------------ | ------------------------ |
-| Isotype (symbol)   | `[RUTA_LOGO_MARK]` | Favicon, app icon        |
-| Logotype (text)    | `[RUTA_LOGO]`      | Header, materials        |
-| Monochrome version | `[RUTA_LOGO_MONO]` | Single-color backgrounds |
+| Isotype (symbol)   | `[LOGO_MARK_PATH]` | Favicon, app icon        |
+| Logotype (text)    | `[LOGO_PATH]`      | Header, materials        |
+| Monochrome version | `[LOGO_MONO_PATH]` | Single-color backgrounds |
 
 - Keep the sources in vector format (SVG) and generate the rasterized ones from there.
 
@@ -29,7 +29,7 @@
 ## Assets
 
 ```text
-[RUTA_ASSETS_MARCA]/
+[BRAND_ASSETS_PATH]/
 ├── logo.svg
 ├── logo-mark.svg
 └── og-image.png   # 1200×630 for sharing on social media

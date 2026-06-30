@@ -1,23 +1,23 @@
 # Deployment conventions
 
-> Production operations for [NOMBRE_DEL_PROYECTO]. Source of truth for how the
+> Production operations for [PROJECT_NAME]. Source of truth for how the
 > system is deployed, rolled back and operated.
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Infrastructure stack
 
-- **Hosting / compute**: [PROVEEDOR].
-- **DNS / TLS**: [PROVEEDOR].
-- **Containers / orchestration**: [HERRAMIENTA].
-- **CI/CD**: [HERRAMIENTA].
+- **Hosting / compute**: [PROVIDER].
+- **DNS / TLS**: [PROVIDER].
+- **Containers / orchestration**: [TOOL].
+- **CI/CD**: [TOOL].
 
 ## Environments
 
 | Environment | URL              | Branch    | Deploy    |
 | ----------- | ---------------- | --------- | --------- |
-| Development | [URL_DEV]        | `develop` | Automatic |
-| Staging     | [URL_STAGING]    | `staging` | Automatic |
-| Production  | [URL_PRODUCCION] | `main`    | Manual    |
+| Development | [DEV_URL]        | `develop` | Automatic |
+| Staging     | [STAGING_URL]    | `staging` | Automatic |
+| Production  | [PRODUCTION_URL] | `main`    | Manual    |
 
 ## Rules
 
@@ -30,25 +30,25 @@
 
 ```bash
 # 1. Build
-[COMANDO_BUILD]
+[BUILD_COMMAND]
 
 # 2. Deploy to the environment
-[COMANDO_DEPLOY]
+[DEPLOY_COMMAND]
 
 # 3. Verify
-curl [URL_HEALTHCHECK]
+curl [HEALTHCHECK_URL]
 ```
 
 ## Rollback
 
 ```bash
-[COMANDO_ROLLBACK]
+[ROLLBACK_COMMAND]
 ```
 
 ## Health checks and monitoring
 
-- Health endpoint: `[RUTA_HEALTHCHECK]`.
-- Error monitoring: [HERRAMIENTA].
+- Health endpoint: `[HEALTHCHECK_PATH]`.
+- Error monitoring: [TOOL].
 - Alerts: [Where and on what notifications are sent].
 
 ## References

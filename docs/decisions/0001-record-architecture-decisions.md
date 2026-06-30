@@ -1,8 +1,8 @@
 # 0001. Record architecture decisions
 
 - **Status**: Accepted
-- **Date**: [FECHA]
-- **Deciders**: [NOMBRES]
+- **Date**: [DATE]
+- **Deciders**: [NAMES]
 
 ## Context and Problem
 

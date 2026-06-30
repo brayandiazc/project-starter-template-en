@@ -1,7 +1,7 @@
 # Secrets and credentials conventions
 
-> How we manage secrets in [NOMBRE_DEL_PROYECTO].
-> **Last updated**: [FECHA]
+> How we manage secrets in [PROJECT_NAME].
+> **Last updated**: [DATE]
 
 ## Philosophy
 
@@ -12,7 +12,7 @@
 
 | Type                     | Where                                    |
 | ------------------------ | ---------------------------------------- |
-| Application secrets      | [GESTOR_DE_SECRETOS / local .env]        |
+| Application secrets      | [SECRETS_MANAGER / local .env]           |
 | Infrastructure variables | Environment variables of the environment |
 | CI/CD secrets            | Provider secrets (e.g. GitHub Actions)   |
 
@@ -34,7 +34,7 @@ cp .env.example .env
 ## Useful commands
 
 ```bash
-[COMANDO_GESTION_SECRETOS]
+[SECRETS_MANAGEMENT_COMMAND]
 ```
 
 ## References
