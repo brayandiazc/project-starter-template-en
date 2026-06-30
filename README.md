@@ -8,7 +8,7 @@
   └─────────────────────────────────────────────────────────────────────────┘
 -->
 
-# [NOMBRE_DEL_PROYECTO]
+# [PROJECT_NAME]
 
 Short, concise description of the project (1-2 lines).
 
@@ -72,29 +72,29 @@ graph LR
 Before you begin, make sure you have installed:
 
 - **[RUNTIME]**: v[VERSION] or higher
-- **[GESTOR_DE_PAQUETES]**: v[VERSION] or higher
-- **[BASE_DE_DATOS]**: v[VERSION] or higher
-- **[OTRA_HERRAMIENTA]**: v[VERSION] or higher
+- **[PACKAGE_MANAGER]**: v[VERSION] or higher
+- **[DATABASE]**: v[VERSION] or higher
+- **[OTHER_TOOL]**: v[VERSION] or higher
 
 ### Required Access
 
 - Access to the repository
-- Credentials for [SERVICIO/API]
-- [OTROS_ACCESOS] (if applicable)
+- Credentials for [SERVICE/API]
+- [OTHER_ACCESS] (if applicable)
 
 ## Installation
 
 ### 1. Clone the repository
 
 ```bash
-git clone [URL_REPOSITORIO]
-cd [NOMBRE_DEL_PROYECTO]
+git clone [REPOSITORY_URL]
+cd [PROJECT_NAME]
 ```
 
 ### 2. Install dependencies
 
 ```bash
-[COMANDO_INSTALAR_DEPENDENCIAS]
+[INSTALL_DEPENDENCIES_COMMAND]
 ```
 
 ### 3. Configure environment variables
@@ -107,8 +107,8 @@ cp .env.example .env
 ### 4. Initialize the database (if applicable)
 
 ```bash
-[COMANDO_MIGRACIONES]
-[COMANDO_SEEDS]
+[MIGRATIONS_COMMAND]
+[SEEDS_COMMAND]
 ```
 
 ## Configuration
@@ -122,15 +122,15 @@ Environment variables are documented in [`.env.example`](.env.example). Copy it 
 ### Local development
 
 ```bash
-[COMANDO_INICIAR_DESARROLLO]
-# The app will be available at http://localhost:[PUERTO]
+[START_DEV_COMMAND]
+# The app will be available at http://localhost:[PORT]
 ```
 
 ### Usage examples
 
 ```bash
 # Example command or representative call
-[EJEMPLO]
+[EXAMPLE]
 ```
 
 For the full API contract, see [`docs/architecture/api.md`](docs/architecture/api.md).
@@ -146,17 +146,17 @@ Summary of the main technologies. Full inventory (with versions and rationale) i
 ## Available Scripts
 
 ```bash
-[COMANDO_DESARROLLO]   # Start in development mode
-[COMANDO_BUILD]        # Build for production
-[COMANDO_TEST]         # Run tests
-[COMANDO_LINT]         # Linting / formatting
+[DEV_COMMAND]   # Start in development mode
+[BUILD_COMMAND]        # Build for production
+[TEST_COMMAND]         # Run tests
+[LINT_COMMAND]         # Linting / formatting
 ```
 
 ## Testing
 
 ```bash
-[COMANDO_TEST]            # All tests
-[COMANDO_TEST_COBERTURA]  # With coverage report
+[TEST_COMMAND]            # All tests
+[TEST_COVERAGE_COMMAND]  # With coverage report
 ```
 
 Testing conventions in [`docs/conventions/testing.md`](docs/conventions/testing.md).
@@ -165,9 +165,9 @@ Testing conventions in [`docs/conventions/testing.md`](docs/conventions/testing.
 
 | Environment | URL              | Branch    | Deploy    |
 | ----------- | ---------------- | --------- | --------- |
-| Development | [URL_DEV]        | `develop` | Automatic |
-| Staging     | [URL_STAGING]    | `staging` | Automatic |
-| Production  | [URL_PRODUCCION] | `main`    | Manual    |
+| Development | [DEV_URL]        | `develop` | Automatic |
+| Staging     | [STAGING_URL]    | `staging` | Automatic |
+| Production  | [PRODUCTION_URL] | `main`    | Manual    |
 
 Detailed procedure in [`docs/conventions/deploy.md`](docs/conventions/deploy.md).
 
@@ -177,18 +177,18 @@ Read the [Contributing Guide](CONTRIBUTING.md) to learn about the workflow (Git 
 
 ## Troubleshooting
 
-#### Error: "[MENSAJE_DE_ERROR_COMÚN]"
+#### Error: "[COMMON_ERROR_MESSAGE]"
 
 ```bash
 # Steps to diagnose and fix
-[COMANDO]
+[COMMAND]
 ```
 
 ### Getting help
 
 1. Check the [documentation](docs/README.md).
-2. Search the [existing issues]([URL_REPOSITORIO]/issues).
-3. Open a new issue or contact [EMAIL_SOPORTE].
+2. Search the [existing issues]([REPOSITORY_URL]/issues).
+3. Open a new issue or contact [SUPPORT_EMAIL].
 
 ## Roadmap
 
@@ -213,17 +213,17 @@ All documentation lives under [`docs/`](docs/README.md):
 
 ## Support
 
-Problems or suggestions? Open an issue in [the repository]([URL_REPOSITORIO]/issues) or write to [EMAIL_SOPORTE].
+Problems or suggestions? Open an issue in [the repository]([REPOSITORY_URL]/issues) or write to [SUPPORT_EMAIL].
 
 ## Versioning
 
-We use [Git](https://git-scm.com) for version control and follow [Semantic Versioning](https://semver.org/). Check the [tags]([URL_REPOSITORIO]/tags) for available versions and the [CHANGELOG](CHANGELOG.md).
+We use [Git](https://git-scm.com) for version control and follow [Semantic Versioning](https://semver.org/). Check the [tags]([REPOSITORY_URL]/tags) for available versions and the [CHANGELOG](CHANGELOG.md).
 
 ## Authors
 
-- **[AUTOR]** — _Initial work_ — [@[USUARIO_GITHUB]](https://github.com/[USUARIO_GITHUB])
+- **[AUTHOR]** — _Initial work_ — [@[GITHUB_USER]](https://github.com/[GITHUB_USER])
 
-See also the list of [contributors]([URL_REPOSITORIO]/contributors).
+See also the list of [contributors]([REPOSITORY_URL]/contributors).
 
 ## License
 
@@ -233,9 +233,9 @@ This project is licensed under the [MIT](LICENSE) license.
 
 If you find this project useful and want to support its development:
 
-- [GitHub Sponsors](https://github.com/sponsors/[USUARIO_GITHUB])
-- [Ko-fi](https://ko-fi.com/[USUARIO_GITHUB])
-- [Patreon](https://patreon.com/[USUARIO_GITHUB])
+- [GitHub Sponsors](https://github.com/sponsors/[GITHUB_USER])
+- [Ko-fi](https://ko-fi.com/[GITHUB_USER])
+- [Patreon](https://patreon.com/[GITHUB_USER])
 
 ## Acknowledgments
 
@@ -248,4 +248,4 @@ Thanks to everyone who contributes to this project. If you find value in it, you
 
 ---
 
-⌨️ with ❤️ by [@[USUARIO_GITHUB]](https://github.com/[USUARIO_GITHUB])
+⌨️ with ❤️ by [@[GITHUB_USER]](https://github.com/[GITHUB_USER])

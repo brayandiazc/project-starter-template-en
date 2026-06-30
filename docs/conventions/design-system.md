@@ -1,15 +1,15 @@
 # Design system conventions
 
-> UI tokens, components and rules for [NOMBRE_DEL_PROYECTO].
+> UI tokens, components and rules for [PROJECT_NAME].
 > For the product's technical/UX design see
 > [`../architecture/design.md`](../architecture/design.md).
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Stack
 
-- **Component library**: [LIBRERÍA].
-- **Styling solution**: [SOLUCIÓN].
-- **Live reference page** (if applicable): `[URL_DESIGN_SYSTEM]`.
+- **Component library**: [LIBRARY].
+- **Styling solution**: [SOLUTION].
+- **Live reference page** (if applicable): `[DESIGN_SYSTEM_URL]`.
 
 ## Tokens
 
@@ -20,7 +20,7 @@
 | Spacing         | [spacing scale]              |
 | Borders/shadows | [radii, elevations]          |
 
-> Use **semantic tokens** (e.g. `color-primario`), not raw values, in components.
+> Use **semantic tokens** (e.g. `color-primary`), not raw values, in components.
 
 ## Allowed components
 

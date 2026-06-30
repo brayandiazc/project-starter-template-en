@@ -1,15 +1,15 @@
 # Views and layouts conventions
 
-> How we organize views, layouts and shared UI in [NOMBRE_DEL_PROYECTO].
-> **Last updated**: [FECHA]
+> How we organize views, layouts and shared UI in [PROJECT_NAME].
+> **Last updated**: [DATE]
 
 ## Layouts
 
-| Layout           | Use                                    |
-| ---------------- | -------------------------------------- |
-| [LAYOUT_PUBLICO] | Public pages (landing, marketing)      |
-| [LAYOUT_AUTH]    | Authentication screens (login/sign-up) |
-| [LAYOUT_APP]     | Authenticated product (dashboard)      |
+| Layout          | Use                                    |
+| --------------- | -------------------------------------- |
+| [PUBLIC_LAYOUT] | Public pages (landing, marketing)      |
+| [AUTH_LAYOUT]   | Authentication screens (login/sign-up) |
+| [APP_LAYOUT]    | Authenticated product (dashboard)      |
 
 ## Shared elements
 
@@ -27,10 +27,10 @@
 ## Structure
 
 ```text
-[RUTA_VISTAS]/
+[VIEWS_PATH]/
 ├── layouts/
 ├── shared/        # reusable partials
-└── [recurso]/     # views per resource
+└── [resource]/    # views per resource
 ```
 
 ## References

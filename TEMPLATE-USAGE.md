@@ -15,7 +15,7 @@ This guide explains how to turn this template into your project's real documenta
 **Option B — Clone and reset the history:**
 
 ```bash
-git clone [URL_DE_ESTA_PLANTILLA] my-project
+git clone [THIS_TEMPLATE_URL] my-project
 cd my-project
 rm -rf .git
 git init
@@ -26,34 +26,34 @@ git init
 All placeholders use the `[BRACKETS_IN_UPPERCASE]` format. Find them with:
 
 ```bash
-grep -rno '\[[A-ZÁÉÍÓÚÑ0-9_/]\+\]' --include='*.md' --include='.env.example' .
+grep -rno '\[[A-Z0-9_/]\+\]' --include='*.md' --include='.env.example' .
 ```
 
 ### Placeholder catalog
 
 | Placeholder                                        | Meaning                                          |
 | -------------------------------------------------- | ------------------------------------------------ |
-| `[NOMBRE_DEL_PROYECTO]`                            | Project name                                     |
-| `[NOMBRE_EMPRESA]`                                 | Company or organization name                     |
-| `[AUTOR]`                                          | Author or lead maintainer name                   |
-| `[USUARIO_GITHUB]`                                 | GitHub user or organization                      |
-| `[URL_REPOSITORIO]`                                | Repository URL                                   |
-| `[AÑO]`                                            | Copyright year in the license                    |
+| `[PROJECT_NAME]`                                   | Project name                                     |
+| `[COMPANY_NAME]`                                   | Company or organization name                     |
+| `[AUTHOR]`                                         | Author or lead maintainer name                   |
+| `[GITHUB_USER]`                                    | GitHub user or organization                      |
+| `[REPOSITORY_URL]`                                 | Repository URL                                   |
+| `[YEAR]`                                           | Copyright year in the license                    |
 | `[VERSION]`                                        | Version (of a dependency or the project)         |
-| `[FECHA]`                                          | Date (`YYYY-MM-DD` format)                       |
-| `[EMAIL_SOPORTE]`                                  | Contact/support email                            |
-| `[EMAIL_SEGURIDAD]`                                | Email to report vulnerabilities                  |
+| `[DATE]`                                           | Date (`YYYY-MM-DD` format)                       |
+| `[SUPPORT_EMAIL]`                                  | Contact/support email                            |
+| `[SECURITY_EMAIL]`                                 | Email to report vulnerabilities                  |
 | `[RUNTIME]`                                        | Language/runtime (Node.js, Python, Ruby…)        |
-| `[GESTOR_DE_PAQUETES]`                             | npm, pnpm, bundler, pip…                         |
-| `[BASE_DE_DATOS]`                                  | PostgreSQL, MySQL, MongoDB…                      |
-| `[PUERTO]`                                         | Local development port                           |
-| `[COMANDO_*]`                                      | Project commands (install, test, build, deploy…) |
-| `[URL_DEV]` / `[URL_STAGING]` / `[URL_PRODUCCION]` | URLs per environment                             |
-| `[SERVICIO/API]`, `[LINK_*]`, `[OTROS_*]`          | Resources specific to your project               |
+| `[PACKAGE_MANAGER]`                                | npm, pnpm, bundler, pip…                         |
+| `[DATABASE]`                                       | PostgreSQL, MySQL, MongoDB…                      |
+| `[PORT]`                                           | Local development port                           |
+| `[*_COMMAND]`                                      | Project commands (install, test, build, deploy…) |
+| `[DEV_URL]` / `[STAGING_URL]` / `[PRODUCTION_URL]` | URLs per environment                             |
+| `[SERVICE/API]`, `[LINK_*]`, `[OTHER_*]`           | Resources specific to your project               |
 
 > Keep this catalog up to date: any new `[PLACEHOLDER]` you introduce should appear here.
 
-> Note: placeholder names are kept identical across the English and Spanish variants of this template so both stay in sync. You replace them with real values either way.
+> The Spanish variant uses the same placeholders translated into Spanish (e.g. `[PROJECT_NAME]` → `[NOMBRE_DEL_PROYECTO]`). You replace them with real values either way.
 
 ## 4. Recommended fill-in order
 
@@ -126,7 +126,7 @@ This template is **multi-platform**: the core (governance, architecture, decisio
 
 ## 8. Keep the documentation alive
 
-- Update the **"Last updated: [FECHA]"** line when you edit a document.
+- Update the **"Last updated: [DATE]"** line when you edit a document.
 - Record every relevant architectural decision as an **ADR** in `docs/decisions/` (see its [README](docs/decisions/README.md)).
 - Keep `CHANGELOG.md` up to date following [Keep a Changelog](https://keepachangelog.com/en/).
 - Additional conventions (payments, webhooks, multi-tenancy, PWA, etc.) can be added using [`docs/conventions/_template.md`](docs/conventions/_template.md).

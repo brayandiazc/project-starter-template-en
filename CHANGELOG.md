@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Security
 
-## [0.1.0] - [FECHA]
+## [0.1.0] - [DATE]
 
 ### Added
 
@@ -29,6 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 <!--
 Version comparison links (adjust to your repository):
-[Unreleased]: [URL_REPOSITORIO]/compare/v0.1.0...HEAD
-[0.1.0]: [URL_REPOSITORIO]/releases/tag/v0.1.0
+[Unreleased]: [REPOSITORY_URL]/compare/v0.1.0...HEAD
+[0.1.0]: [REPOSITORY_URL]/releases/tag/v0.1.0
 -->
