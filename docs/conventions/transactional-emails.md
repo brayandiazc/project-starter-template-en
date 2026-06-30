@@ -1,12 +1,12 @@
 # Transactional emails conventions
 
-> How we send transactional emails in [NOMBRE_DEL_PROYECTO].
-> **Last updated**: [FECHA]
+> How we send transactional emails in [PROJECT_NAME].
+> **Last updated**: [DATE]
 
 ## Stack
 
-- **Sending provider**: [PROVEEDOR] (production).
-- **Development environment**: [HERRAMIENTA_DEV] (local preview without sending).
+- **Sending provider**: [PROVIDER] (production).
+- **Development environment**: [DEV_TOOL] (local preview without sending).
 
 ## Configuration per environment
 
@@ -14,7 +14,7 @@
 | ----------- | ------------------- |
 | Development | [Local preview]     |
 | Test        | [In-memory capture] |
-| Production  | [Real PROVEEDOR]    |
+| Production  | [Real PROVIDER]     |
 
 ## Rules
 
@@ -30,12 +30,12 @@
 | -------------- | ------------- |
 | Welcome        | User sign-up  |
 | Recover access | Reset request |
-| [OTRO]         | [Evento]      |
+| [OTHER]        | [Event]       |
 
 ## Examples
 
 ```text
-Subject: Welcome to [NOMBRE_DEL_PROYECTO]
+Subject: Welcome to [PROJECT_NAME]
 Body: HTML + plain text, with a CTA and a verification link
 ```
 

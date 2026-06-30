@@ -1,6 +1,6 @@
 # Contributing Guide
 
-Thanks for your interest in contributing to **[NOMBRE_DEL_PROYECTO]**! This guide describes the workflow, code standards, and Pull Request process.
+Thanks for your interest in contributing to **[PROJECT_NAME]**! This guide describes the workflow, code standards, and Pull Request process.
 
 ## Table of Contents
 
@@ -92,7 +92,7 @@ git push origin hotfix/fix-description
 ### Formatting
 
 - Indentation and style defined by [`.editorconfig`](.editorconfig) and the project's linter.
-- Lines of at most [LONGITUD_LÍNEA] characters.
+- Lines of at most [LINE_LENGTH] characters.
 - UTF-8 encoding, LF line endings.
 
 ### Naming
@@ -149,5 +149,5 @@ docs: update the installation guide
 ## Testing
 
 - Accompany every functional change with tests.
-- Run the full suite before opening the PR ([COMANDO_TEST]).
+- Run the full suite before opening the PR ([TEST_COMMAND]).
 - Follow the [testing conventions](docs/conventions/testing.md).

@@ -1,6 +1,6 @@
 # Conventions
 
-This folder documents **how we work** in [NOMBRE_DEL_PROYECTO]: cross-cutting
+This folder documents **how we work** in [PROJECT_NAME]: cross-cutting
 rules and standards that apply to day-to-day work, independent of any specific
 feature.
 

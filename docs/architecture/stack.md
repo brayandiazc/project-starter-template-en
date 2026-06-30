@@ -1,59 +1,59 @@
 # Tech Stack
 
 > Source of truth for the project's technologies and versions.
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Frontend
 
 | Category  | Technology           | Version   | Why      |
 | --------- | -------------------- | --------- | -------- |
-| Framework | [FRAMEWORK_FRONTEND] | [VERSION] | [Reason] |
-| State     | [LIBRERÍA_ESTADO]    | [VERSION] | [Reason] |
-| Styles    | [SOLUCIÓN_ESTILOS]   | [VERSION] | [Reason] |
-| Build     | [HERRAMIENTA_BUILD]  | [VERSION] | [Reason] |
+| Framework | [FRONTEND_FRAMEWORK] | [VERSION] | [Reason] |
+| State     | [STATE_LIBRARY]      | [VERSION] | [Reason] |
+| Styles    | [STYLING_SOLUTION]   | [VERSION] | [Reason] |
+| Build     | [BUILD_TOOL]         | [VERSION] | [Reason] |
 
 ## Backend
 
-| Category         | Technology            | Version   | Why      |
-| ---------------- | --------------------- | --------- | -------- |
-| Runtime          | [RUNTIME]             | [VERSION] | [Reason] |
-| Framework        | [FRAMEWORK_BACKEND]   | [VERSION] | [Reason] |
-| ORM / data layer | [ORM]                 | [VERSION] | [Reason] |
-| Validation       | [LIBRERÍA_VALIDACIÓN] | [VERSION] | [Reason] |
+| Category         | Technology           | Version   | Why      |
+| ---------------- | -------------------- | --------- | -------- |
+| Runtime          | [RUNTIME]            | [VERSION] | [Reason] |
+| Framework        | [BACKEND_FRAMEWORK]  | [VERSION] | [Reason] |
+| ORM / data layer | [ORM]                | [VERSION] | [Reason] |
+| Validation       | [VALIDATION_LIBRARY] | [VERSION] | [Reason] |
 
 ## Database
 
-| Category | Technology      | Version   | Why      |
-| -------- | --------------- | --------- | -------- |
-| Primary  | [BASE_DE_DATOS] | [VERSION] | [Reason] |
-| Cache    | [CACHE]         | [VERSION] | [Reason] |
-| Queue    | [COLA]          | [VERSION] | [Reason] |
+| Category | Technology | Version   | Why      |
+| -------- | ---------- | --------- | -------- |
+| Primary  | [DATABASE] | [VERSION] | [Reason] |
+| Cache    | [CACHE]    | [VERSION] | [Reason] |
+| Queue    | [QUEUE]    | [VERSION] | [Reason] |
 
 ## DevOps & Tools
 
-| Category      | Technology         |
-| ------------- | ------------------ |
-| CI/CD         | [CI_CD]            |
-| Containers    | [CONTENEDORES]     |
-| Orchestration | [ORQUESTACIÓN]     |
-| Monitoring    | [MONITOREO]        |
-| Testing       | [HERRAMIENTA_TEST] |
+| Category      | Technology      |
+| ------------- | --------------- |
+| CI/CD         | [CI_CD]         |
+| Containers    | [CONTAINERS]    |
+| Orchestration | [ORCHESTRATION] |
+| Monitoring    | [MONITORING]    |
+| Testing       | [TEST_TOOL]     |
 
 ## External services
 
-| Service      | Use                   | Required credentials   |
-| ------------ | --------------------- | ---------------------- |
-| [SERVICIO_1] | [What it is used for] | [Environment variable] |
-| [SERVICIO_2] | [What it is used for] | [Environment variable] |
+| Service     | Use                   | Required credentials   |
+| ----------- | --------------------- | ---------------------- |
+| [SERVICE_1] | [What it is used for] | [Environment variable] |
+| [SERVICE_2] | [What it is used for] | [Environment variable] |
 
 ## Rationale for choices
 
 | Chosen technology | Discarded alternative | Reason                 |
 | ----------------- | --------------------- | ---------------------- |
-| [ELEGIDA]         | [DESCARTADA]          | [Why it was preferred] |
+| [CHOSEN]          | [DISCARDED]           | [Why it was preferred] |
 
 ## Minimum supported versions
 
 - [RUNTIME] >= [VERSION]
-- [BASE_DE_DATOS] >= [VERSION]
-- [OTRA_HERRAMIENTA] >= [VERSION]
+- [DATABASE] >= [VERSION]
+- [OTHER_TOOL] >= [VERSION]

@@ -1,8 +1,8 @@
 # NNNN. [Decision title]
 
 - **Status**: [Proposed | Accepted | Superseded by ADR-XXXX | Deprecated]
-- **Date**: [FECHA]
-- **Deciders**: [NOMBRES]
+- **Date**: [DATE]
+- **Deciders**: [NAMES]
 
 ## Context and Problem
 

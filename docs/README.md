@@ -1,4 +1,4 @@
-# [NOMBRE_DEL_PROYECTO] Documentation
+# [PROJECT_NAME] Documentation
 
 Map of the project documentation. Start here to find out which document
 answers each question.

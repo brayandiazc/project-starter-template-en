@@ -1,6 +1,6 @@
 # Security Policy
 
-This document describes how to report vulnerabilities in **[NOMBRE_DEL_PROYECTO]** and the security practices we follow in the repository.
+This document describes how to report vulnerabilities in **[PROJECT_NAME]** and the security practices we follow in the repository.
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@ This document describes how to report vulnerabilities in **[NOMBRE_DEL_PROYECTO]
 
 If you discover a security vulnerability, **do not open a public issue**. Report it privately through one of these channels:
 
-- **Email**: <[EMAIL_SEGURIDAD]> (preferred — use a subject starting with `Security:` so we prioritize it).
+- **Email**: <[SECURITY_EMAIL]> (preferred — use a subject starting with `Security:` so we prioritize it).
 - **GitHub Security Advisories**: the _Security_ tab of the repository → _Report a vulnerability_.
 
 ### Information to include
@@ -49,11 +49,11 @@ We commit to acknowledging receipt, keeping you informed of progress, not pursui
 
 ## Supported Versions
 
-| Version                 | Security support              |
-| ----------------------- | ----------------------------- |
-| `main` (main branch)    | Yes                           |
-| `develop` (integration) | Yes                           |
-| Releases / tags         | [DEFINIR_POLÍTICA_DE_SOPORTE] |
+| Version                 | Security support        |
+| ----------------------- | ----------------------- |
+| `main` (main branch)    | Yes                     |
+| `develop` (integration) | Yes                     |
+| Releases / tags         | [DEFINE_SUPPORT_POLICY] |
 
 ## Scope
 
@@ -100,7 +100,7 @@ The following findings **do not qualify** as vulnerabilities:
 ## Dependencies
 
 - Pin dependency versions with a versioned lockfile.
-- Run automated vulnerability audits in CI ([COMANDO_AUDIT_DEPENDENCIAS]).
+- Run automated vulnerability audits in CI ([DEPENDENCY_AUDIT_COMMAND]).
 - Automated updates are managed with **Dependabot** (`.github/dependabot.yml`) — PRs reviewed by humans before merge.
 - Critical vulnerabilities in dependencies are treated with the same priority as vulnerabilities in your own code.
 
@@ -165,9 +165,9 @@ We thank those who report vulnerabilities responsibly.
 
 ## Contact
 
-- **Security reports**: <[EMAIL_SEGURIDAD]> (subject: `Security: …`)
-- **General inquiries**: <[EMAIL_SOPORTE]>
+- **Security reports**: <[SECURITY_EMAIL]> (subject: `Security: …`)
+- **General inquiries**: <[SUPPORT_EMAIL]>
 
 ---
 
-> Version: 1.0 — Last updated: [FECHA]
+> Version: 1.0 — Last updated: [DATE]
