@@ -1,147 +1,251 @@
-# 📌 Project Title
+<!--
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │  This is a TEMPLATE. Before publishing your project:                       │
+  │  1. Read TEMPLATE-USAGE.md to learn how to instantiate it.                 │
+  │  2. Replace every [PLACEHOLDER] (find them with grep, see the guide).      │
+  │  3. Delete the documents that don't apply to your project.                 │
+  │  4. Remove this comment.                                                   │
+  └─────────────────────────────────────────────────────────────────────────┘
+-->
 
-A self-explanatory name for the project, with a brief and clear description of what it does.
+# [NOMBRE_DEL_PROYECTO]
 
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Coverage](https://img.shields.io/badge/coverage-95%25-blue)
+Short, concise description of the project (1-2 lines).
 
-## 🧠 Description
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-0%25-lightgrey)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-A more detailed and technical description of the project, including its main features, purpose, and how it works.
+## Table of Contents
 
-## 🖼️ Visuals
+- [Description](#description)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Available Scripts](#available-scripts)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [Troubleshooting](#troubleshooting)
+- [Roadmap](#roadmap)
+- [Documentation](#documentation)
+- [Support](#support)
+- [Versioning](#versioning)
+- [Authors](#authors)
+- [License](#license)
+- [Support Us](#support-us)
+- [Acknowledgments](#acknowledgments)
 
-| Main View             | Key Feature                 |
-| --------------------- | --------------------------- |
-| ![main](img/main.png) | ![feature](img/feature.gif) |
+## Description
 
-## 🚀 Getting Started
+Detailed description of the project, its purpose and the problem it solves. Explain the context and how this project adds value.
 
-These instructions will help you get a copy of the project up and running on your local machine for development and testing purposes.
+### How It Works
 
-### 📋 Prerequisites
+```mermaid
+graph LR
+    A[User] -->|Request| B[Authentication]
+    B -->|Token| C[API Layer]
+    C -->|Validation| D{Authorized?}
+    D -->|Yes| E[Business Logic]
+    D -->|No| F[401 Error]
+    E -->|Query| G[(Database)]
+    G -->|Response| E
+    E -->|Result| C
+    C -->|Response| A
+```
 
-- Operating System (e.g., Ubuntu 20.04, Windows 10)
-- Programming Language: Python 3.10+
-- Framework: Django 4.2
-- Database: PostgreSQL 13+
-- Others...
+## Features
 
-### 🔧 Installation
+- ✅ Main feature 1
+- ✅ Main feature 2
+- ✅ Main feature 3
+- 🚧 Feature in progress
+- 📋 Planned feature
+
+## Prerequisites
+
+Before you begin, make sure you have installed:
+
+- **[RUNTIME]**: v[VERSION] or higher
+- **[GESTOR_DE_PAQUETES]**: v[VERSION] or higher
+- **[BASE_DE_DATOS]**: v[VERSION] or higher
+- **[OTRA_HERRAMIENTA]**: v[VERSION] or higher
+
+### Required Access
+
+- Access to the repository
+- Credentials for [SERVICIO/API]
+- [OTROS_ACCESOS] (if applicable)
+
+## Installation
+
+### 1. Clone the repository
 
 ```bash
-# Step 1: Clone the repository
-git clone https://github.com/your-user/project.git
-cd project
+git clone [URL_REPOSITORIO]
+cd [NOMBRE_DEL_PROYECTO]
+```
 
-# Step 2: Create virtual environment (optional)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+### 2. Install dependencies
 
-# Step 3: Install dependencies
-pip install -r requirements.txt
+```bash
+[COMANDO_INSTALAR_DEPENDENCIAS]
+```
 
-# Step 4: Configure environment variables
+### 3. Configure environment variables
+
+```bash
 cp .env.example .env
-
-# Step 5: Run the application
-python main.py
+# Edit .env with your credentials
 ```
 
-## 🧪 Running Tests
+### 4. Initialize the database (if applicable)
 
 ```bash
-# Run all tests
-pytest
+[COMANDO_MIGRACIONES]
+[COMANDO_SEEDS]
 ```
 
-### 🔄 End-to-End Tests
+## Configuration
 
-These tests cover full user flows such as authentication, entity creation, etc.
+Environment variables are documented in [`.env.example`](.env.example). Copy it to `.env` and fill in the values for your environment.
 
-### ⌨️ Code Style Checks
+> Never commit your `.env` file with real values to the repository. See [SECURITY.md](SECURITY.md) and [`docs/conventions/secrets.md`](docs/conventions/secrets.md).
+
+## Usage
+
+### Local development
 
 ```bash
-flake8 .
-black --check .
+[COMANDO_INICIAR_DESARROLLO]
+# The app will be available at http://localhost:[PUERTO]
 ```
 
-## 📦 Deployment
+### Usage examples
 
-To deploy this project in a production environment:
-
-- Create Docker container (optional)
-- Set up a server (Heroku, Railway, VPS)
-- Run migrations and load initial data
-- Set up environment variables in production
-
-## 🛠️ Built With
-
-- [Python](https://www.python.org/) - Programming language
-- [Django](https://www.djangoproject.com/) - Web framework
-- [PostgreSQL](https://www.postgresql.org/) - Database system
-- [Docker](https://www.docker.com/) - Containerization
-
-## 🛣️ Roadmap
-
-- [ ] Add social media authentication
-- [ ] Improve performance with caching
-- [ ] Add responsive UI
-- [ ] Advanced admin panel
-
-## 🖇️ Contributing
-
-Contributions make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**!
-
-```md
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/NewFeature`)
-3. Commit your changes (`git commit -m 'Add new feature'`)
-4. Push to the branch (`git push origin feature/NewFeature`)
-5. Open a Pull Request
+```bash
+# Example command or representative call
+[EJEMPLO]
 ```
 
-Please read [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details on the process.
+For the full API contract, see [`docs/architecture/api.md`](docs/architecture/api.md).
 
-## 📖 Wiki
+## Architecture
 
-You can find more documentation and guides in our [Wiki](https://github.com/your/project/wiki)
+Summary of how the system is built. Full detail in [`docs/architecture/architecture.md`](docs/architecture/architecture.md).
 
-## 🛟 Support
+## Tech Stack
 
-If you have any issues or suggestions, please open an issue [here](https://github.com/your/project/issues).
+Summary of the main technologies. Full inventory (with versions and rationale) in [`docs/architecture/stack.md`](docs/architecture/stack.md).
 
-## 📌 Versioning
+## Available Scripts
 
-We use [Git](https://git-scm.com) for version control and follow [Semantic Versioning](https://semver.org/).
+```bash
+[COMANDO_DESARROLLO]   # Start in development mode
+[COMANDO_BUILD]        # Build for production
+[COMANDO_TEST]         # Run tests
+[COMANDO_LINT]         # Linting / formatting
+```
 
-Check out the [tags](https://github.com/your/project/tags) for available versions.
+## Testing
 
-## ✒️ Authors
+```bash
+[COMANDO_TEST]            # All tests
+[COMANDO_TEST_COBERTURA]  # With coverage report
+```
 
-- **Brayan Diaz C** – _Initial work_ – [Brayan Diaz C](https://github.com/brayandiazc)
+Testing conventions in [`docs/conventions/testing.md`](docs/conventions/testing.md).
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+## Deployment
 
-## 📄 License
+| Environment | URL              | Branch    | Deploy    |
+| ----------- | ---------------- | --------- | --------- |
+| Development | [URL_DEV]        | `develop` | Automatic |
+| Staging     | [URL_STAGING]    | `staging` | Automatic |
+| Production  | [URL_PRODUCCION] | `main`    | Manual    |
 
-This project is licensed under the [MIT License](LICENSE.md).
+Detailed procedure in [`docs/conventions/deploy.md`](docs/conventions/deploy.md).
 
-## ❤️ Support Us
+## Contributing
 
-If you like this project and want to support its development, you can do so here:
+Read the [Contributing Guide](CONTRIBUTING.md) to learn about the workflow (Git Flow), code standards, commit format (Conventional Commits) and the Pull Request process.
 
-- [GitHub Sponsors](https://github.com/sponsors/brayandiazc)
-- [Ko-fi](https://ko-fi.com/brayandiazc)
-- [Patreon](https://patreon.com/brayandiazc)
+## Troubleshooting
 
-## 🎁 Acknowledgements
+#### Error: "[MENSAJE_DE_ERROR_COMÚN]"
 
-We are grateful for community contributions to this project. If you found value in it, here are some things you can do:
+```bash
+# Steps to diagnose and fix
+[COMANDO]
+```
+
+### Getting help
+
+1. Check the [documentation](docs/README.md).
+2. Search the [existing issues]([URL_REPOSITORIO]/issues).
+3. Open a new issue or contact [EMAIL_SOPORTE].
+
+## Roadmap
+
+Vision and next steps in [`docs/product/roadmap.md`](docs/product/roadmap.md).
+
+## Documentation
+
+All documentation lives under [`docs/`](docs/README.md):
+
+| Document                                                                 | Answers                                       |
+| ------------------------------------------------------------------------ | --------------------------------------------- |
+| [`docs/architecture/architecture.md`](docs/architecture/architecture.md) | How is it built?                              |
+| [`docs/architecture/stack.md`](docs/architecture/stack.md)               | With which technologies?                      |
+| [`docs/architecture/database.md`](docs/architecture/database.md)         | What entities and relationships?              |
+| [`docs/architecture/api.md`](docs/architecture/api.md)                   | What endpoints does it expose?                |
+| [`docs/architecture/auth.md`](docs/architecture/auth.md)                 | How does authentication & authorization work? |
+| [`docs/architecture/design.md`](docs/architecture/design.md)             | How is it designed and why?                   |
+| [`docs/product/business-model.md`](docs/product/business-model.md)       | Why does it exist / how does it create value? |
+| [`docs/product/roadmap.md`](docs/product/roadmap.md)                     | Where is it headed?                           |
+| [`docs/decisions/`](docs/decisions/README.md)                            | Why did we make each decision?                |
+| [`docs/conventions/`](docs/conventions/README.md)                        | How do we work in this repo?                  |
+
+## Support
+
+Problems or suggestions? Open an issue in [the repository]([URL_REPOSITORIO]/issues) or write to [EMAIL_SOPORTE].
+
+## Versioning
+
+We use [Git](https://git-scm.com) for version control and follow [Semantic Versioning](https://semver.org/). Check the [tags]([URL_REPOSITORIO]/tags) for available versions and the [CHANGELOG](CHANGELOG.md).
+
+## Authors
+
+- **[AUTOR]** — _Initial work_ — [@[USUARIO_GITHUB]](https://github.com/[USUARIO_GITHUB])
+
+See also the list of [contributors]([URL_REPOSITORIO]/contributors).
+
+## License
+
+This project is licensed under the [MIT](LICENSE) license.
+
+## Support Us
+
+If you find this project useful and want to support its development:
+
+- [GitHub Sponsors](https://github.com/sponsors/[USUARIO_GITHUB])
+- [Ko-fi](https://ko-fi.com/[USUARIO_GITHUB])
+- [Patreon](https://patreon.com/[USUARIO_GITHUB])
+
+## Acknowledgments
+
+Thanks to everyone who contributes to this project. If you find value in it, you can:
 
 - Share the project 📤
-- Buy us a coffee ☕
+- Buy a coffee ☕
 - Open an issue or PR 🙌
-- Leave a thank you comment 💬
+- Leave your thanks with a comment 💬
 
-⌨️ with ❤️ by [Brayan Diaz C](https://github.com/brayandiazc) 😊
+---
+
+⌨️ with ❤️ by [@[USUARIO_GITHUB]](https://github.com/[USUARIO_GITHUB])

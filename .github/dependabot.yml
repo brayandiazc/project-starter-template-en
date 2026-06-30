@@ -1,0 +1,54 @@
+# ==============================================================================
+# Dependabot configuration
+# ==============================================================================
+# Dependabot checks your dependencies and opens PRs to update them.
+# Documentation: https://docs.github.com/code-security/dependabot/dependabot-version-updates
+#
+# ADJUST the `package-ecosystem` entries to the ones your project uses. Below are
+# github-actions (almost always useful) and one commented example per ecosystem.
+# ==============================================================================
+
+version: 2
+
+updates:
+  # GitHub Actions used in the workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ci-cd"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+
+  # ── Examples per ecosystem — uncomment the one that applies ────────────────
+  #
+  # - package-ecosystem: "npm"        # Node.js
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
+  #   labels: ["dependencies"]
+  #
+  # - package-ecosystem: "pip"        # Python
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
+  #
+  # - package-ecosystem: "bundler"    # Ruby
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
+  #
+  # - package-ecosystem: "gomod"      # Go
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
+  #
+  # - package-ecosystem: "docker"     # Dockerfile
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
