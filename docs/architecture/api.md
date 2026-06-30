@@ -1,13 +1,13 @@
 # API Reference
 
-> Endpoints, authentication and conventions of the **[NOMBRE_DEL_PROYECTO]** API.
+> Endpoints, authentication and conventions of the **[PROJECT_NAME]** API.
 > Interactive documentation: [LINK_OPENAPI/SWAGGER/POSTMAN]
 >
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## General conventions
 
-- **Base URL**: `[URL_BASE_API]`
+- **Base URL**: `[API_BASE_URL]`
 - **Versioning**: version prefix in the path (e.g. `/v1`).
 - **Format**: JSON (`Content-Type: application/json`).
 - **Dates**: ISO 8601 (`YYYY-MM-DDTHH:mm:ssZ`).
@@ -25,8 +25,8 @@ Standard error format:
 ```json
 {
   "error": {
-    "code": "[CÓDIGO]",
-    "message": "[Mensaje legible]",
+    "code": "[CODE]",
+    "message": "[Human-readable message]",
     "details": []
   }
 }
@@ -46,30 +46,30 @@ Standard error format:
 ## Pagination, filtering and sorting
 
 - **Pagination**: `?page=1&per_page=20` (or cursor: `?cursor=...`).
-- **Filtering**: `?filtro[campo]=valor`.
+- **Filtering**: `?filter[field]=value`.
 - **Sorting**: `?sort=-created_at`.
 
 ## Endpoints
 
-### [RECURSO]
+### [RESOURCE]
 
 ```http
-GET    /v1/[recursos]          # List
-GET    /v1/[recursos]/:id      # Get one
-POST   /v1/[recursos]          # Create
-PUT    /v1/[recursos]/:id      # Update
-DELETE /v1/[recursos]/:id      # Delete
+GET    /v1/[resources]          # List
+GET    /v1/[resources]/:id      # Get one
+POST   /v1/[resources]          # Create
+PUT    /v1/[resources]/:id      # Update
+DELETE /v1/[resources]/:id      # Delete
 ```
 
 **Example — create:**
 
 ```http
-POST /v1/[recursos]
+POST /v1/[resources]
 Content-Type: application/json
 Authorization: Bearer <token>
 
 {
-  "[campo]": "[valor]"
+  "[field]": "[value]"
 }
 ```
 
@@ -78,7 +78,7 @@ Authorization: Bearer <token>
 ```json
 {
   "id": "[uuid]",
-  "[campo]": "[valor]"
+  "[field]": "[value]"
 }
 ```
 

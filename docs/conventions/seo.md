@@ -1,7 +1,7 @@
 # SEO conventions
 
-> SEO metadata and best practices in [NOMBRE_DEL_PROYECTO].
-> **Last updated**: [FECHA]
+> SEO metadata and best practices in [PROJECT_NAME].
+> **Last updated**: [DATE]
 
 ## What the shared head emits
 
@@ -32,8 +32,8 @@ Every page must provide, through the shared layout/head:
 ## Examples
 
 ```html
-<meta name="description" content="[Descripción de la página]" />
-<meta property="og:image" content="[URL_IMAGEN_OG]" />
+<meta name="description" content="[Page description]" />
+<meta property="og:image" content="[OG_IMAGE_URL]" />
 ```
 
 ## References

@@ -1,10 +1,10 @@
-# Design — [NOMBRE_DEL_PROYECTO]
+# Design — [PROJECT_NAME]
 
 > Technical and product design decisions: how the problem is solved and
 > how the product looks and feels. Relevant decisions are promoted to
 > ADRs in [`../decisions/`](../decisions/README.md).
 >
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Context and goals
 
@@ -31,7 +31,7 @@
 
 | Alternative   | Pros   | Cons   | Why was it discarded? |
 | ------------- | ------ | ------ | --------------------- |
-| [ALTERNATIVA] | [Pros] | [Cons] | [Reason]              |
+| [ALTERNATIVE] | [Pros] | [Cons] | [Reason]              |
 
 ## Visual identity and design system
 
@@ -55,9 +55,9 @@ Links to [`database.md`](database.md) if the design introduces or changes entiti
 
 ## Risks and mitigations
 
-| Risk     | Impact            | Mitigation            |
-| -------- | ----------------- | --------------------- |
-| [RIESGO] | [High/Medium/Low] | [How it is mitigated] |
+| Risk   | Impact            | Mitigation            |
+| ------ | ----------------- | --------------------- |
+| [RISK] | [High/Medium/Low] | [How it is mitigated] |
 
 ## Open questions
 

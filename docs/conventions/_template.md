@@ -1,7 +1,7 @@
-# [TEMA] conventions
+# [TOPIC] conventions
 
-> Rules and standards for [TEMA] in [NOMBRE_DEL_PROYECTO].
-> **Last updated**: [FECHA]
+> Rules and standards for [TOPIC] in [PROJECT_NAME].
+> **Last updated**: [DATE]
 
 ## Stack
 
@@ -25,7 +25,7 @@
 ## Useful commands
 
 ```bash
-[COMANDO_RELEVANTE]
+[RELEVANT_COMMAND]
 ```
 
 ## References

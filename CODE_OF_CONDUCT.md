@@ -24,6 +24,6 @@ Unacceptable behavior:
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project team at <[EMAIL_SOPORTE]>. All complaints will be reviewed and investigated promptly and fairly, maintaining the confidentiality of the reporter.
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project team at <[SUPPORT_EMAIL]>. All complaints will be reviewed and investigated promptly and fairly, maintaining the confidentiality of the reporter.
 
 Project maintainers who do not follow or enforce this Code of Conduct in good faith may face temporary or permanent repercussions as determined by the project's leadership.

@@ -1,15 +1,15 @@
 # Database conventions
 
-> Data modeling rules and standards in [NOMBRE_DEL_PROYECTO].
+> Data modeling rules and standards in [PROJECT_NAME].
 > For the project's concrete data model see
 > [`../architecture/database.md`](../architecture/database.md).
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Stack
 
-- **Engine**: [BASE_DE_DATOS].
+- **Engine**: [DATABASE].
 - **Access layer / ORM**: [ORM].
-- **Migrations**: [HERRAMIENTA_MIGRACIONES].
+- **Migrations**: [MIGRATIONS_TOOL].
 
 ## Modeling rules
 
@@ -21,12 +21,12 @@
 
 | Case            | Type                |
 | --------------- | ------------------- |
-| Email           | [TIPO]              |
-| Short text      | [TIPO]              |
-| Long text       | [TIPO]              |
-| Structured JSON | [TIPO]              |
-| Money           | [TIPO decimal]      |
-| Boolean         | [TIPO] with default |
+| Email           | [TYPE]              |
+| Short text      | [TYPE]              |
+| Long text       | [TYPE]              |
+| Structured JSON | [TYPE]              |
+| Money           | [decimal TYPE]      |
+| Boolean         | [TYPE] with default |
 
 ## Migrations
 
@@ -37,19 +37,19 @@
 ## Examples
 
 ```text
-crear tabla [recurso]
-  id           [pk]
-  [referencia] [fk, not null, indexado]
-  nombre       [texto, not null]
+create table [resource]
+  id          [pk]
+  [reference] [fk, not null, indexed]
+  name        [text, not null]
   timestamps
 ```
 
 ## Useful commands
 
 ```bash
-[COMANDO_CREAR_MIGRACION]
-[COMANDO_MIGRAR]
-[COMANDO_ROLLBACK]
+[CREATE_MIGRATION_COMMAND]
+[MIGRATE_COMMAND]
+[ROLLBACK_COMMAND]
 ```
 
 ## References

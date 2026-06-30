@@ -1,6 +1,6 @@
 # ==============================================================================
 # CI skeleton — STACK-NEUTRAL.
-# Rename it to `ci.yml` and replace the [COMANDO_*] steps with your project's
+# Rename it to `ci.yml` and replace the [*_COMMAND] steps with your project's
 # to enable it. As long as it has the `.example` extension, GitHub won't run it.
 # ==============================================================================
 
@@ -19,23 +19,23 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       # - name: Set up environment
-      #   run: [COMANDO_SETUP]
+      #   run: [SETUP_COMMAND]
       - name: Lint
-        run: echo "Replace with [COMANDO_LINT]"
+        run: echo "Replace with [LINT_COMMAND]"
 
   test:
     name: Tests
     runs-on: ubuntu-latest
     # services:
     #   db:
-    #     image: [IMAGEN_BASE_DE_DATOS]
+    #     image: [DATABASE_IMAGE]
     #     ports: ["5432:5432"]
     steps:
       - uses: actions/checkout@v7
       # - name: Set up environment
-      #   run: [COMANDO_SETUP]
+      #   run: [SETUP_COMMAND]
       - name: Tests
-        run: echo "Replace with [COMANDO_TEST]"
+        run: echo "Replace with [TEST_COMMAND]"
 
   build:
     name: Build
@@ -44,4 +44,4 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Build
-        run: echo "Replace with [COMANDO_BUILD]"
+        run: echo "Replace with [BUILD_COMMAND]"

@@ -2,7 +2,7 @@
 # Delete the ones you don't use. Documentation:
 # https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
 
-github: [USUARIO_GITHUB]
-# ko_fi: [USUARIO_KOFI]
-# patreon: [USUARIO_PATREON]
-# custom: ["[URL_PERSONALIZADA]"]
+github: [GITHUB_USER]
+# ko_fi: [KOFI_USER]
+# patreon: [PATREON_USER]
+# custom: ["[CUSTOM_URL]"]

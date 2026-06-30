@@ -1,9 +1,9 @@
 # Authentication and Authorization
 
-> How users are authenticated and authorized in **[NOMBRE_DEL_PROYECTO]**.
+> How users are authenticated and authorized in **[PROJECT_NAME]**.
 > For the cross-cutting rules see [`../conventions/authentication.md`](../conventions/authentication.md).
 >
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Overview
 
@@ -44,10 +44,10 @@ sequenceDiagram
 - **Where it is validated**: always on the server, on every request.
 - **Roles and permissions**:
 
-| Role    | Permissions      |
-| ------- | ---------------- |
-| [ROL_1] | [What it can do] |
-| [ROL_2] | [What it can do] |
+| Role     | Permissions      |
+| -------- | ---------------- |
+| [ROLE_1] | [What it can do] |
+| [ROLE_2] | [What it can do] |
 
 ## External providers (OAuth / SSO)
 

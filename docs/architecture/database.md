@@ -1,10 +1,10 @@
 # Data Model
 
-> Schema, entities and relationships of **[NOMBRE_DEL_PROYECTO]**.
+> Schema, entities and relationships of **[PROJECT_NAME]**.
 > For the modeling **rules and standards** (naming, types, indexes)
 > see [`../conventions/database.md`](../conventions/database.md).
 >
-> **Last updated**: [FECHA]
+> **Last updated**: [DATE]
 
 ## Entity-Relationship Diagram
 
@@ -26,13 +26,13 @@ erDiagram
 
 ## Main entities
 
-### [ENTIDAD_1]
+### [ENTITY_1]
 
 - **Purpose**: [What it represents].
 - **Key fields**: [field (type) — description].
 - **Relationships**: [with which other entities and with what cardinality].
 
-### [ENTIDAD_2]
+### [ENTITY_2]
 
 - **Purpose**: [What it represents].
 - **Key fields**: [field (type) — description].
@@ -40,9 +40,9 @@ erDiagram
 
 ## Relationships and cardinality
 
-| Relationship              | Cardinality | Notes            |
-| ------------------------- | ----------- | ---------------- |
-| [ENTIDAD_A] → [ENTIDAD_B] | 1:N         | [Integrity rule] |
+| Relationship            | Cardinality | Notes            |
+| ----------------------- | ----------- | ---------------- |
+| [ENTITY_A] → [ENTITY_B] | 1:N         | [Integrity rule] |
 
 ## Indexes and constraints
 
@@ -51,9 +51,9 @@ erDiagram
 
 ## Migrations and schema versioning
 
-- [How migrations are generated and applied — `[COMANDO_MIGRACIONES]`].
+- [How migrations are generated and applied — `[MIGRATIONS_COMMAND]`].
 - [Policy for reversible / non-destructive migrations].
 
 ## Seed data (seeds)
 
-- [What base data is loaded and with which command — `[COMANDO_SEEDS]`].
+- [What base data is loaded and with which command — `[SEEDS_COMMAND]`].
