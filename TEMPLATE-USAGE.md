@@ -21,6 +21,30 @@ rm -rf .git
 git init
 ```
 
+### Adopting it in an existing project
+
+"Use this template" only works for new repositories. To bring this structure into a
+project you've already started, copy in just what you need — without touching your
+code or history:
+
+```bash
+# From your project root, on a new branch
+git checkout -b chore/adopt-doc-template
+
+# Download the template without its history
+npx degit brayandiazc/project-starter-template-en .tpl
+
+# Bring in the documentation and GitHub templates (copy selectively)
+cp -R .tpl/docs .
+cp -R .tpl/.github .
+cp .tpl/TEMPLATE-USAGE.md .
+rm -rf .tpl
+```
+
+- **Don't overwrite** your existing `README.md`, `LICENSE`, or `.gitignore` — merge by hand.
+- Fill the `docs/` with what you already know about your project instead of leaving placeholders.
+- Commit on the branch, open a PR, then delete `TEMPLATE-USAGE.md`.
+
 ## 3. Replace the placeholders
 
 All placeholders use the `[BRACKETS_IN_UPPERCASE]` format. Find them with:
