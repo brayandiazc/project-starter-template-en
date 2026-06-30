@@ -1,0 +1,65 @@
+# [NOMBRE_DEL_PROYECTO] — Business Model
+
+> Framework: **Lean Canvas**. Describes why the project exists and how it creates value.
+> **Last updated**: [FECHA]
+
+## 1. Problem
+
+- [Main problem customers face].
+- [Secondary problem].
+- **Existing alternatives**: [How they solve it today without your product].
+
+## 2. Customer Segments
+
+| Segment      | Description    | Notes                 |
+| ------------ | -------------- | --------------------- |
+| [SEGMENTO_1] | [Who they are] | [Early adopter? ICP?] |
+| [SEGMENTO_2] | [Who they are] |                       |
+
+- **Ideal customer (ICP)**: [Description of the ideal customer].
+- **Early adopters**: [Who you target first].
+
+## 3. Unique Value Proposition
+
+- [A clear statement of why customers should choose you over the competition].
+- **High-level concept**: [Analogy such as "X for Y"].
+
+## 4. Solution (the product)
+
+| Module / Capability | What it solves         |
+| ------------------- | ---------------------- |
+| [MÓDULO_1]          | [Problem it addresses] |
+| [MÓDULO_2]          | [Problem it addresses] |
+
+## 5. Channels
+
+- [How you reach customers: organic, content, partnerships, outbound…].
+
+## 6. Revenue Model
+
+| Plan     | Price    | What's included    |
+| -------- | -------- | ------------------ |
+| [PLAN_1] | [PRECIO] | [Quota / features] |
+| [PLAN_2] | [PRECIO] | [Quota / features] |
+
+- **Billing logic**: [monthly/annual, taxes, etc.].
+
+## 7. Cost Structure and Profitability
+
+- **Variable costs**: [unit cost per usage/service].
+- **Fixed costs**: [infrastructure, tools, etc.].
+- **Margin per plan**: [estimate].
+- **Break-even point**: [how many customers/revenue].
+
+## 8. Key Metrics
+
+- **Pre-launch**: [interest, trial users, satisfaction].
+- **Post-launch**: [conversion, MRR, churn, quota usage].
+
+## 9. Competitive Advantage
+
+- [What you have that is hard to copy].
+
+## Open Decisions
+
+- [ ] [Business decision to be resolved].
