@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Optional guardrail: block direct commits on protected branches.
+# Enable it in your clone with:  git config core.hooksPath .githooks
+set -euo pipefail
+
+branch="$(git symbolic-ref --short -q HEAD 2>/dev/null || true)"
+case "$branch" in
+  main|master|develop)
+    echo "⛔ git-guardrails: don't commit directly on '$branch'. Create a feat/…|fix/…|docs/…|chore/… branch (CONTRIBUTING.md)." >&2
+    exit 1
+    ;;
+esac
+exit 0

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Optional guardrail: block direct pushes to protected branches.
+# Enable it in your clone with:  git config core.hooksPath .githooks
+# stdin (one line per ref):  <local ref> <local sha> <remote ref> <remote sha>
+set -euo pipefail
+
+protected='^refs/heads/(main|master|develop)$'
+while read -r localref localsha remoteref remotesha; do
+  [ -z "${remoteref:-}" ] && continue
+  if [[ "$remoteref" =~ $protected ]]; then
+    echo "⛔ git-guardrails: don't push directly to '${remoteref#refs/heads/}'. Open a PR from your branch (CONTRIBUTING.md)." >&2
+    exit 1
+  fi
+done
+exit 0
