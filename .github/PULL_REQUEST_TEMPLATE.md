@@ -32,6 +32,7 @@ Summary of the changes and the problem they solve.
 - [ ] New tests added (if applicable)
 - [ ] No regressions in existing functionality
 - [ ] Documentation updated (if applicable)
+- [ ] Meets the Definition of Done (`docs/conventions/definition-of-done.md`)
 
 ## Related Issues
 
