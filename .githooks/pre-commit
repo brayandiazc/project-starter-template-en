@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Optional guardrail: block direct commits on protected branches.
+# Optional guardrail: block direct commits on protected branches and reject
+# staged secret files (real .env files, private keys, certificates).
 # Enable it in your clone with:  git config core.hooksPath .githooks
 set -euo pipefail
 
@@ -10,4 +11,24 @@ case "$branch" in
     exit 1
     ;;
 esac
+
+# No secrets in the history: reject staged secret files.
+while IFS= read -r f; do
+  base="${f##*/}"
+  case "$base" in
+    # Configuration templates are fine: they are the contract, no real values.
+    .env.example|.env.sample|.env.template) continue ;;
+    # The real .env (and variants such as .env.local, .env.production).
+    .env|.env.*)
+      echo "⛔ git-guardrails: don't commit '$f': real environment values never enter the history. Commit .env.example instead (SECURITY.md)." >&2
+      exit 1
+      ;;
+    # Private keys and certificates.
+    *.pem|*.key|id_rsa|id_rsa.*|id_ed25519|id_ed25519.*|id_ecdsa|id_ecdsa.*)
+      echo "⛔ git-guardrails: don't commit '$f': it looks like a private key or certificate (SECURITY.md)." >&2
+      exit 1
+      ;;
+  esac
+done < <(git diff --cached --name-only --diff-filter=ACMR)
+
 exit 0
