@@ -55,27 +55,39 @@ grep -rno '\[[A-Z0-9_/]\+\]' --include='*.md' --include='.env.example' .
 
 ### Placeholder catalog
 
-| Placeholder                                        | Meaning                                          |
-| -------------------------------------------------- | ------------------------------------------------ |
-| `[PROJECT_NAME]`                                   | Project name                                     |
-| `[COMPANY_NAME]`                                   | Company or organization name                     |
-| `[AUTHOR]`                                         | Author or lead maintainer name                   |
-| `[GITHUB_USER]`                                    | GitHub user or organization                      |
-| `[REPOSITORY_URL]`                                 | Repository URL                                   |
-| `[YEAR]`                                           | Copyright year in the license                    |
-| `[VERSION]`                                        | Version (of a dependency or the project)         |
-| `[DATE]`                                           | Date (`YYYY-MM-DD` format)                       |
-| `[SUPPORT_EMAIL]`                                  | Contact/support email                            |
-| `[SECURITY_EMAIL]`                                 | Email to report vulnerabilities                  |
-| `[RUNTIME]`                                        | Language/runtime (Node.js, Python, Ruby…)        |
-| `[PACKAGE_MANAGER]`                                | npm, pnpm, bundler, pip…                         |
-| `[DATABASE]`                                       | PostgreSQL, MySQL, MongoDB…                      |
-| `[PORT]`                                           | Local development port                           |
-| `[*_COMMAND]`                                      | Project commands (install, test, build, deploy…) |
-| `[DEV_URL]` / `[STAGING_URL]` / `[PRODUCTION_URL]` | URLs per environment                             |
-| `[SERVICE/API]`, `[LINK_*]`, `[OTHER_*]`           | Resources specific to your project               |
+| Placeholder                                                                                                            | Meaning                                          |
+| ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `[PROJECT_NAME]`                                                                                                       | Project name                                     |
+| `[COMPANY_NAME]`                                                                                                       | Company or organization name                     |
+| `[AUTHOR]`                                                                                                             | Author or lead maintainer name                   |
+| `[GITHUB_USER]`                                                                                                        | GitHub user or organization                      |
+| `[REPOSITORY_URL]`                                                                                                     | Repository URL                                   |
+| `[YEAR]`                                                                                                               | Copyright year in the license                    |
+| `[VERSION]`                                                                                                            | Version (of a dependency or the project)         |
+| `[DATE]`                                                                                                               | Date (`YYYY-MM-DD` format)                       |
+| `[SUPPORT_EMAIL]`                                                                                                      | Contact/support email                            |
+| `[SECURITY_EMAIL]`                                                                                                     | Email to report vulnerabilities                  |
+| `[RUNTIME]`                                                                                                            | Language/runtime (Node.js, Python, Ruby…)        |
+| `[PACKAGE_MANAGER]`                                                                                                    | npm, pnpm, bundler, pip…                         |
+| `[DATABASE]`                                                                                                           | PostgreSQL, MySQL, MongoDB…                      |
+| `[PORT]`                                                                                                               | Local development port                           |
+| `[*_COMMAND]`                                                                                                          | Project commands (install, test, build, deploy…) |
+| `[*_URL]` (`[DEV_URL]`, `[API_BASE_URL]`…)                                                                             | URLs per environment and web resources           |
+| `[SERVICE/API]`, `[LINK_*]`, `[OTHER_*]`                                                                               | Resources specific to your project               |
+| `[*_TOOL]`, `[TOOL]`, `[TECHNOLOGY]`                                                                                   | Stack tools (build, test, e2e, migrations…)      |
+| `[*_FRAMEWORK]`, `[ORM]`, `[LINTER]`, `[FORMATTER]`                                                                    | Stack pieces by role                             |
+| `[*_LIBRARY]`, `[LIBRARY]`, `[STYLING_SOLUTION]`                                                                       | Libraries (state, validation, styling…)          |
+| `[CACHE]`, `[QUEUE]`, `[CONTAINERS]`, `[ORCHESTRATION]`, `[CI_CD]`, `[MONITORING]`, `[TTL]`                            | Infrastructure and operations                    |
+| `[*_PATH]`                                                                                                             | Project folder/file paths                        |
+| `[*_LAYOUT]`, `[LOCALE_*]`, `[DEFAULT_LOCALE]`, `[AA/AAA]`                                                             | UI, i18n, and target accessibility level         |
+| `[ENTITY_*]`, `[COMPONENT_*]`, `[SERVICE_*]`, `[MODULE_*]`, `[ROLE_*]`, `[DECISION_*]`, `[TERM_*]`                     | Domain model and architecture                    |
+| `[SEGMENT_*]`, `[PLAN_*]`, `[PRICE]`, `[PERCENTAGE]`                                                                   | Business model                                   |
+| `[CHOSEN]`, `[DISCARDED]`, `[ALTERNATIVE]`                                                                             | Comparisons in decisions (stack, design)         |
+| `[TYPE]`, `[OTHER]`, `[EXAMPLE]`, `[COMMAND]`, `[NAMES]`, `[PROVIDER]`, `[RESOURCE]`, `[RISK]`, `[CODE]`, `[SOLUTION]` | Local descriptives of each document              |
+| `[LINE_LENGTH]`, `[COMMON_ERROR_MESSAGE]`, `[DEFINE_SUPPORT_POLICY]`                                                   | Local settings and copy in specific docs         |
 
-> Keep this catalog up to date: any new `[PLACEHOLDER]` you introduce should appear here.
+> Keep this catalog up to date: any new `[PLACEHOLDER]` you introduce should appear
+> here — CI verifies it with `.github/scripts/check-placeholders.sh`.
 
 > The Spanish variant uses the same placeholders translated into Spanish (e.g. `[PROJECT_NAME]` → `[NOMBRE_DEL_PROYECTO]`). You replace them with real values either way.
 
@@ -94,28 +106,34 @@ grep -rno '\[[A-Z0-9_/]\+\]' --include='*.md' --include='.env.example' .
 
 ## 5. File inventory
 
-| File                          | Purpose                        | Required?                 |
-| ----------------------------- | ------------------------------ | ------------------------- |
-| `README.md`                   | Project front page             | Yes                       |
-| `CONTRIBUTING.md`             | How to contribute and Git flow | Recommended               |
-| `CODE_OF_CONDUCT.md`          | Code of conduct                | Recommended               |
-| `SECURITY.md`                 | Security policy                | Recommended               |
-| `CHANGELOG.md`                | Change history                 | Recommended               |
-| `LICENSE`                     | License                        | Yes                       |
-| `.env.example`                | Environment-variable contract  | If there is configuration |
-| `.gitignore`, `.editorconfig` | Repo hygiene                   | Recommended               |
-| `.github/`                    | Issue/PR templates, automation | Optional                  |
-| `docs/architecture/*`         | Technical documentation        | As needed                 |
-| `docs/product/*`              | Business and roadmap           | As needed                 |
-| `docs/decisions/*`            | Decision log (ADR)             | Recommended               |
-| `docs/conventions/*`          | Working conventions            | As needed                 |
+| File                          | Purpose                              | Required?                 |
+| ----------------------------- | ------------------------------------ | ------------------------- |
+| `README.md`                   | Project front page                   | Yes                       |
+| `CONTRIBUTING.md`             | How to contribute and Git flow       | Recommended               |
+| `CODE_OF_CONDUCT.md`          | Code of conduct                      | Recommended               |
+| `SECURITY.md`                 | Security policy                      | Recommended               |
+| `CHANGELOG.md`                | Change history                       | Recommended               |
+| `LICENSE`                     | License                              | Yes                       |
+| `.env.example`                | Environment-variable contract        | If there is configuration |
+| `.gitignore`, `.editorconfig` | Repo hygiene                         | Recommended               |
+| `.github/`                    | Issue/PR templates, automation       | Optional                  |
+| `.github/workflows/`          | Active CI (docs quality, secrets)    | Recommended               |
+| `.github/scripts/`            | Verification scripts and their tests | Recommended               |
+| `docs/architecture/*`         | Technical documentation              | As needed                 |
+| `docs/product/*`              | Business and roadmap                 | As needed                 |
+| `docs/decisions/*`            | Decision log (ADR)                   | Recommended               |
+| `docs/conventions/*`          | Working conventions                  | As needed                 |
 
 ### What to delete if it doesn't apply
 
 - Conventions in `docs/conventions/` you don't use (e.g. `i18n.md` if you don't internationalize).
 - Sections of `README.md` that don't apply (e.g. the Deployment table).
 - Documents in `docs/architecture/` that don't correspond (e.g. `api.md` if you don't expose an API).
-- The example workflows in `.github/workflows/` if you don't use GitHub Actions.
+- The example workflows in `.github/workflows/` if you don't use GitHub Actions. The
+  **active** workflows (`quality.yml`, `secret-scan.yml`) work in any stack — keep them
+  if you use GitHub Actions.
+- **Always** delete what is template-repo only: `.github/workflows/template-parity.yml`
+  and `.github/scripts/check-parity.sh`.
 
 ## 6. `architecture/X.md` vs `conventions/X.md`
 
@@ -154,6 +172,29 @@ This template is **multi-platform**: the core (governance, architecture, decisio
 - Record every relevant architectural decision as an **ADR** in `docs/decisions/` (see its [README](docs/decisions/README.md)).
 - Keep `CHANGELOG.md` up to date following [Keep a Changelog](https://keepachangelog.com/en/).
 - Additional conventions (payments, webhooks, multi-tenancy, PWA, etc.) can be added using [`docs/conventions/_template.md`](docs/conventions/_template.md).
+- CI watches the docs' health (workflow [`quality.yml`](.github/workflows/quality.yml)):
+  Markdown format, internal links, and leftover placeholders.
+
+### Receiving template improvements
+
+The template keeps evolving after you instantiate it. To be able to bring those
+improvements (new scripts, hooks, or workflows) into your project:
+
+- When instantiating, record the origin in a `.template-origin` file at the root —
+  the template repo, the commit you started from, and the date. For example:
+
+  ```bash
+  echo "repo: https://github.com/brayandiazc/project-starter-template-en
+  commit: $(git ls-remote https://github.com/brayandiazc/project-starter-template-en HEAD | cut -f1)
+  date: $(date +%F)" > .template-origin
+  ```
+
+- When you want to sync, fetch the current template with
+  `npx degit brayandiazc/project-starter-template-en .tpl`, diff the tooling
+  (`.github/scripts/`, `.github/workflows/`, `.githooks/`) against your copy, and
+  apply by hand what makes sense — without touching your already-filled documentation.
+  Then update `.template-origin` and remove `.tpl`.
+- Follow the template repository's releases/tags to know what changed.
 
 ## 9. Need AI? Use the AI variant
 
