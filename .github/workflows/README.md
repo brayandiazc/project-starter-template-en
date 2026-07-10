@@ -3,9 +3,23 @@
 This folder contains the project's [GitHub Actions](https://docs.github.com/actions)
 workflows.
 
-Because the template is stack-agnostic, it **does not include ready-to-run
-workflows**: only an example skeleton. Adapt it (or create your own) according to
-your language and tooling.
+## Active workflows (stack-agnostic)
+
+They work as is, regardless of the project's language — don't delete them when
+instantiating:
+
+- [`quality.yml`](quality.yml) — documentation quality: Markdown format
+  (Prettier), internal links, placeholders, and the test suite for the repo's
+  scripts (see [`../scripts/`](../scripts)).
+- [`secret-scan.yml`](secret-scan.yml) — secret scanning with
+  [gitleaks](https://github.com/gitleaks/gitleaks) over the history.
+
+## Template-repo only
+
+- [`template-parity.yml`](template-parity.yml) — compares the structure with the
+  sibling variant in the other language. It has a repository-name guard so it
+  doesn't run in instantiated projects; delete it anyway when you instantiate
+  the template.
 
 ## Included Skeleton
 
