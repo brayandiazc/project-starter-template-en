@@ -15,6 +15,7 @@ feature.
 | [authentication.md](authentication.md)             | Authentication and authorization   |
 | [branding.md](branding.md)                         | Brand identity and assets          |
 | [database.md](database.md)                         | Data modeling and migrations       |
+| [definition-of-done.md](definition-of-done.md)     | What "done" means                  |
 | [deploy.md](deploy.md)                             | Deployment and operations          |
 | [design-system.md](design-system.md)               | Design system and components       |
 | [i18n.md](i18n.md)                                 | Internationalization               |
