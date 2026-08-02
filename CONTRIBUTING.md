@@ -84,9 +84,6 @@ git push origin hotfix/fix-description
 
 ### Branch policies
 
-- **`develop` is the repository's default branch on GitHub**: new PRs and
-  Dependabot PRs target it; `main` only receives merges from `develop` (release)
-  or `hotfix/*`.
 - `main` and `develop` are protected: no direct pushes, only via approved PR.
 - Keep your branch up to date with `develop` (rebase or merge) before opening the PR.
 - Optional: enable the [git guardrails](.githooks/README.md) (`git config core.hooksPath .githooks`)

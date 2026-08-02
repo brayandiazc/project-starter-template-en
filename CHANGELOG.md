@@ -18,8 +18,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
-- `develop` is now the repo's default branch on GitHub (PRs and Dependabot target
-  it); `dependabot.yml` pins it with `target-branch`.
 
 ### Deprecated
 
