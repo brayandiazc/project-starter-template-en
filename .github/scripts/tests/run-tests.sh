@@ -137,6 +137,57 @@ printf 'See [docs](docs/does-not-exist.md).\n' >"$TMP/links-bad/README.md"
 commit_all "$TMP/links-bad"
 (bash "$CHECK_LINKS" "$TMP/links-bad" >/dev/null); check "broken link → fails" 1 $?
 
+# ── check-inheritance.sh ─────────────────────────────────────────────────────────
+CHECK_INHERITANCE="$REPO_ROOT/.github/scripts/check-inheritance.sh"
+if [ -f "$CHECK_INHERITANCE" ]; then
+  echo "check-inheritance.sh:"
+
+  instance() { # $1 = nombre, $2 = fecha de instanciación
+    mkdir -p "$TMP/$1/docs/decisions"
+    printf 'repo=https://github.com/x/y\ncommit=abc\nfecha=%s\n' "$2" >"$TMP/$1/.template-origin"
+  }
+  run_inheritance() { (bash "$CHECK_INHERITANCE" "$TMP/$1" > /dev/null 2>&1); }
+
+  # Without .template-origin it is not an instance: the template is untouched.
+  mkdir -p "$TMP/hr-plantilla"
+  run_inheritance hr-plantilla; check "no .template-origin → allows" 0 $?
+
+  # Freshly instantiated, clean project.
+  instance hr-ok 2026-08-07
+  printf '# Changelog\n\n## [Unreleased]\n\n## [0.1.0] - 2026-08-08\n\n- Start.\n' \
+    >"$TMP/hr-ok/CHANGELOG.md"
+  run_inheritance hr-ok; check "instance limpia → pasa" 0 $?
+
+  # A CHANGELOG version older than the instantiation = inherited.
+  instance hr-changelog 2026-08-07
+  printf '# Changelog\n\n## [Unreleased]\n\n## [0.3.0] - 2026-08-02\n\n- From the template.\n' \
+    >"$TMP/hr-changelog/CHANGELOG.md"
+  run_inheritance hr-changelog; check "CHANGELOG with older version → fails" 1 $?
+
+  # An ADR older than the instantiation = the template's decision.
+  instance hr-adr 2026-08-07
+  printf '# 0004. Guardrails\n\n- **Date**: 2026-08-02\n' \
+    >"$TMP/hr-adr/docs/decisions/0004-guardrails.md"
+  run_inheritance hr-adr; check "ADR with older date → fails" 1 $?
+
+  # …but 0001 is the canonical ADR and IS inherited.
+  instance hr-adr-canonico 2026-08-07
+  printf '# 0001. Record decisions\n\n- **Date**: 2026-07-01\n' \
+    >"$TMP/hr-adr-canonico/docs/decisions/0001-record-architecture-decisions.md"
+  run_inheritance hr-adr-canonico; check "canonical ADR 0001 → inherited, passes" 0 $?
+
+  # Files exclusive to the template repository.
+  instance hr-parity 2026-08-07
+  mkdir -p "$TMP/hr-parity/.github/scripts"
+  printf '#!/bin/bash\n' >"$TMP/hr-parity/.github/scripts/check-parity.sh"
+  run_inheritance hr-parity; check "leftover check-parity.sh → fails" 1 $?
+
+  # Unreadable date: fails open, does not block the flow.
+  mkdir -p "$TMP/hr-fecha"
+  printf 'repo=x\nfecha=ayer\n' >"$TMP/hr-fecha/.template-origin"
+  run_inheritance hr-fecha; check "invalid date → allows" 0 $?
+fi
+
 # ── .github/workflows/ structure ──────────────────────────────────────────────
 # GitHub runs ANY .yml/.yaml in that folder, regardless of the rest of the name:
 # a `ci.example.yml` actually runs, and passes green without testing anything.
