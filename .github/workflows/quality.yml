@@ -1,7 +1,7 @@
 # ==============================================================================
 # Documentation quality — ACTIVE and stack-agnostic.
 # Works as is both in the template and in instantiated projects:
-#   - format:       Prettier over the Markdown files.
+#   - format:       Prettier over Markdown, HTML, CSS, JSON and YAML.
 #   - links:        relative links between docs point to real files.
 #   - placeholders: in the template, every placeholder is in the
 #                   TEMPLATE-USAGE.md catalog; in an instance, none remain.
@@ -18,12 +18,12 @@ on:
 
 jobs:
   format:
-    name: Markdown format
+    name: Format
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - name: Prettier --check
-        run: bash .github/scripts/format-markdown.sh --check
+        run: bash .github/scripts/format.sh --check
 
   links:
     name: Internal links
