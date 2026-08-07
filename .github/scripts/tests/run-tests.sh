@@ -137,6 +137,19 @@ printf 'See [docs](docs/does-not-exist.md).\n' >"$TMP/links-bad/README.md"
 commit_all "$TMP/links-bad"
 (bash "$CHECK_LINKS" "$TMP/links-bad" >/dev/null); check "broken link → fails" 1 $?
 
+# ── .github/workflows/ structure ──────────────────────────────────────────────
+# GitHub runs ANY .yml/.yaml in that folder, regardless of the rest of the name:
+# a `ci.example.yml` actually runs, and passes green without testing anything.
+# Whatever must not run cannot end in .yml/.yaml.
+WORKFLOWS="$REPO_ROOT/.github/workflows"
+if [ -d "$WORKFLOWS" ]; then
+  echo ".github/workflows structure:"
+  runnable_examples="$(ls "$WORKFLOWS" | grep -Ei '(example|sample|template)\.ya?ml$' || true)"
+  [ -z "$runnable_examples" ]
+  check "no example workflow ends in .yml/.yaml" 0 $?
+  [ -n "$runnable_examples" ] && printf '     · %s\n' $runnable_examples
+fi
+
 # ── Summary ───────────────────────────────────────────────────────────────────
 echo ""
 echo "Result: $pass OK, $fail failed."

@@ -1,7 +1,13 @@
 # ==============================================================================
 # CI skeleton — STACK-NEUTRAL.
 # Rename it to `ci.yml` and replace the [*_COMMAND] steps with your project's
-# to enable it. As long as it has the `.example` extension, GitHub won't run it.
+# to enable it.
+#
+# Careful with the name: GitHub runs ANY `.yml`/`.yaml` file inside
+# `.github/workflows/`, no matter what else the name contains. That is why the
+# extension comes last: `.example` is not a format GitHub parses. Rename it to
+# `ci.example.yml` and it runs — passing green without testing anything,
+# because its steps are `echo`s.
 # ==============================================================================
 
 name: CI
