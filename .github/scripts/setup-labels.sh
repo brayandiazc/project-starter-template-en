@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # Script to create labels on GitHub using the gh CLI.
+# The labels are READ from the tables in ../LABELS.md — that file is the source of
+# truth and there is no copy here: they used to be duplicated on both sides and had
+# already drifted apart without anything noticing.
 # Requires: GitHub CLI (gh) installed and authenticated.
 # Usage: bash .github/scripts/setup-labels.sh
 
@@ -43,34 +46,29 @@ create_label() {
   gh label create "$name" --color "$color" --description "$description" --force 2>/dev/null || true
 }
 
-# ── Automatic labels (used by labeler.yml) ───────────────────────────────────
-echo -e "\n${GREEN}Automatic labels (labeler)${NC}"
-create_label "documentation" "0075CA" "Documentation changes"
-create_label "frontend"      "0052CC" "UI / client changes"
-create_label "styles"        "BFD4F2" "CSS / styling changes"
-create_label "backend"       "006B75" "Server / API / logic changes"
-create_label "database"      "5319E7" "Migrations, schema, or seeds"
-create_label "testing"       "FBCA04" "Test changes"
-create_label "dependencies"  "0366D6" "Dependency updates"
-create_label "config"        "D4C5F9" "Configuration changes"
-create_label "ci-cd"         "F9D0C4" "CI/CD, workflow, and Docker changes"
-create_label "github"        "333333" "GitHub template and config changes"
+# ── Read the labels from the LABELS.md tables ────────────────────────────────
+# Each row is `| `name` | `#HEX` | text |`; the third column acts as the
+# description (GitHub truncates it to 100 characters, and so do we).
+LABELS_MD="$(cd "$(dirname "$0")" && pwd)/../LABELS.md"
 
-# ── Manual labels ────────────────────────────────────────────────────────────
-echo -e "\n${GREEN}Manual labels${NC}"
-create_label "bug"              "D73A4A" "Something isn't working correctly"
-create_label "enhancement"      "A2EEEF" "New feature or improvement"
-create_label "breaking change"  "B60205" "Changes that break compatibility"
-create_label "needs review"     "FBCA04" "Requires review"
-create_label "work in progress" "FEF2C0" "Work in progress"
-create_label "ready for merge"  "0E8A16" "Approved and ready to merge"
-create_label "blocked"          "B60205" "Blocked by dependencies"
-create_label "help wanted"      "008672" "External help needed"
-create_label "good first issue" "7057FF" "Good for new contributors"
-create_label "duplicate"        "CFD3D7" "Duplicate issue or PR"
-create_label "invalid"          "E4E669" "Not valid or not applicable"
-create_label "wontfix"          "FFFFFF" "This will not be worked on"
-create_label "question"         "D876E3" "Request for information"
+if [ ! -f "$LABELS_MD" ]; then
+	echo -e "${YELLOW}Error: could not find $LABELS_MD (the source of truth for labels).${NC}"
+	exit 1
+fi
 
-echo -e "\n${GREEN}Labels configured successfully!${NC}"
+total=0
+while IFS= read -r row; do
+	name="$(sed -E 's/^\|[[:space:]]*`([^`]+)`.*/\1/' <<<"$row")"
+	color="$(sed -E 's/.*`#([0-9A-Fa-f]{6})`.*/\1/' <<<"$row")"
+	desc="$(awk -F'|' '{gsub(/^[ \t]+|[ \t]+$/, "", $4); print $4}' <<<"$row" | tr -d '\140' | cut -c1-100)"
+	create_label "$name" "$color" "$desc"
+	total=$((total + 1))
+done < <(grep -E '^\| *`[^`]+` *\| *`#[0-9A-Fa-f]{6}` *\|' "$LABELS_MD")
+
+if [ "$total" -eq 0 ]; then
+	echo -e "${YELLOW}Error: no label row found in LABELS.md.${NC}"
+	exit 1
+fi
+
+echo -e "\n${GREEN}$total labels configured successfully!${NC}"
 echo -e "\nView labels at: ${BLUE}https://github.com/$REPO/labels${NC}\n"

@@ -35,3 +35,8 @@ Thumbs.db
 .vscode/
 *.swp
 *~
+
+# ── AI agents (personal/local only) ───────────────────────────────────────
+# Shared AI config (AGENTS.md, CLAUDE.md, .claude/agents, .claude/skills,
+# .claude/settings.json) IS committed. Only personal/local overrides are ignored.
+.claude/settings.local.json

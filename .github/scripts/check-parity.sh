@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
-# check-parity.sh — compares this template's file structure with that of its
-# sibling variant (en ↔ es) to detect divergence between variants.
+# check-parity.sh — compares this template's file structure with its sibling
+# variant (en ↔ es) to detect divergences between variants.
 #
 # TEMPLATE-REPO ONLY: this script (and the template-parity.yml workflow that
-# runs it) make no sense in an instantiated project — delete them when you
-# instantiate the template.
+# runs it) makes no sense in an instantiated project — the /instantiate skill
+# removes them.
 #
 # Usage:
 #   bash .github/scripts/check-parity.sh <path-to-sibling-repo>
 #
-# Compares tracked files only (git ls-files), applying the map of known
+# Compares only versioned files (git ls-files), applying the map of known
 # renames between languages.
 set -euo pipefail
 
 SIBLING="${1:?usage: check-parity.sh <path-to-sibling-repo>}"
 
-# Map of known renames between the variants (en ↔ es). This pair currently
-# has none — the function is a deliberate no-op kept as the single place to
-# add `sed` rules if language-specific file names ever appear.
+# Map of known renames between variants (es ↔ en). Both sides are normalized
+# toward the English name, so the script works in both directions.
+# Today this pair has no files renamed across languages, so the normalization is the
+# identity; if a file ever changes name between variants, add the matching `sed` here.
 normalize() {
   cat
 }
@@ -33,6 +34,6 @@ else
   echo "   (\"<\" only exists here · \">\" only exists in the sibling)"
   cat "/tmp/parity-diff.$$"
   rm -f "/tmp/parity-diff.$$"
-  echo "→ Port the pending change to the sibling variant or update this script's rename map."
+  echo "→ Port the pending change (/port-change skill) or update this script's rename map."
   exit 1
 fi

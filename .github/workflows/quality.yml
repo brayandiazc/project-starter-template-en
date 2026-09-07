@@ -1,58 +1,103 @@
 # ==============================================================================
-# Documentation quality — ACTIVE and stack-agnostic.
-# Works as is both in the template and in instantiated projects:
-#   - format:       Prettier over Markdown, HTML, CSS, JSON and YAML.
-#   - links:        relative links between docs point to real files.
-#   - placeholders: in the template, every placeholder is in the
-#                   TEMPLATE-USAGE.md catalog; in an instance, none remain.
+# Documentation and tooling quality — ACTIVE and stack-agnostic.
+# It works as-is both in the template and in instantiated projects.
+#
+# ONE SINGLE JOB AND ONLY ON PRs, on purpose. All these checks together take ~16
+# seconds, but GitHub bills each job rounding up to the minute: splitting them
+# into nine jobs multiplied the cost by nine without gaining any real time. Every
+# step carries `!cancelled()` so a failure does not hide the ones after it — you
+# still see every problem at once, which was the only advantage of splitting them.
+#
+# What it checks (the canonical list is the steps below; if this falls behind,
+# they win):
+#   - format:       Prettier over the Markdown files.
+#   - links:        relative links between docs point at real files.
+#   - placeholders: in the template, every placeholder is in the TEMPLATE-USAGE.md
+#                   catalog; in an instance, none is left.
+#   - inheritance:  an instantiated project drags neither the CHANGELOG, the ADRs
+#                   nor the template repo's files (a no-op in the template itself).
+#   - design:       the product's views use only semantic tokens.
+#   - instructions: the README does not prescribe steps the project lacks
+#                   (e.g. `cp .env.example .env` with not a single variable).
 #   - scripts:      the test suite for the repo's scripts and hooks.
+#   - project:      the PROJECT's suite (unless ci.yml already runs it).
+#   - changelog:    (PR only) the change brings its entry under `## [Unreleased]`
+#                   (rule 5 of docs/conventions/workflow.md).
+#   - release:      (only on PRs toward `main`) the version is cut and unpublished
+#                   — nothing reaches production without a release.
 # ==============================================================================
 
 name: Quality
 
+# PRs only, on purpose. GitHub runs `pull_request` events against the **simulated
+# merge commit**, not against the branch tip: the run fired on merging checked
+# exactly the same tree three minutes later. It was half the repository's runs.
 on:
-  push:
-    branches: [main, develop]
   pull_request:
     branches: [main, develop]
 
+# A new push to the PR cancels the previous run: active development is where most
+# of the budget goes.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  format:
-    name: Format
+  quality:
+    name: Quality
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth: 0 → the changelog check compares against the PR base and the
+      # release one needs the tags to know which version is already published.
       - uses: actions/checkout@v7
-      - name: Prettier --check
+        with:
+          fetch-depth: 0
+
+      - name: Format (Prettier)
+        if: ${{ !cancelled() }}
         run: bash .github/scripts/format.sh --check
 
-  links:
-    name: Internal links
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - name: Check relative links
+      - name: Internal links
+        if: ${{ !cancelled() }}
         run: bash .github/scripts/check-links.sh
 
-  placeholders:
-    name: Placeholders
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - name: Check placeholders
+      - name: Placeholders
+        if: ${{ !cancelled() }}
         run: bash .github/scripts/check-placeholders.sh
 
-  herencia:
-    name: Template inheritance
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - name: No template history or files
+      - name: Template inheritance
+        if: ${{ !cancelled() }}
         run: bash .github/scripts/check-inheritance.sh
 
-  scripts:
-    name: Script tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - name: Test suite
+      - name: Design system — views with no raw color
+        if: ${{ !cancelled() }}
+        run: bash .github/scripts/check-design-tokens.sh
+
+      - name: README instructions
+        if: ${{ !cancelled() }}
+        run: bash .github/scripts/check-instructions.sh
+
+      - name: Scripts test suite
+        if: ${{ !cancelled() }}
         run: bash .github/scripts/tests/run-tests.sh
+
+      # If the project already enabled its own CI (ci.yml), the suite runs there:
+      # repeating it here paid the rounded-up minute twice per PR — exactly the
+      # cost this workflow's header argues for avoiding. Locally, pre-push still
+      # runs it every time (there it is free).
+      - name: Project tests
+        if: ${{ !cancelled() && hashFiles('.github/workflows/ci.yml') == '' }}
+        run: bash .github/scripts/check-project-tests.sh
+
+      # PRs only: on a push to develop/main the diff against itself says nothing.
+      - name: CHANGELOG entry
+        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+        env:
+          # The `no-changelog` label is the explicit way to ask for the exception.
+          PR_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: bash .github/scripts/check-changelog.sh "${{ github.event.pull_request.base.sha }}"
+
+      # Only on the PRs that go to production: those are the ones that publish.
+      - name: Version cut and unpublished
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && github.base_ref == 'main' }}
+        run: bash .github/scripts/check-release.sh
