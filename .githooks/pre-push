@@ -29,6 +29,7 @@ CHECKS=(
 	"Template inheritance	.github/scripts/check-inheritance.sh"
 	"develop exists on the remote	.github/scripts/check-git-flow.sh"
 	"Workflow identity	.github/scripts/check-workflow-identity.sh"
+	"Labels declared and created	.github/scripts/check-labels.sh"
 	"Design system	.github/scripts/check-design-tokens.sh"
 	"README instructions	.github/scripts/check-instructions.sh"
 	"Template test suite	.github/scripts/tests/run-tests.sh"

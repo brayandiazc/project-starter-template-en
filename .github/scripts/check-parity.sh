@@ -3,8 +3,8 @@
 # variant (en ↔ es) to detect divergences between variants.
 #
 # TEMPLATE-REPO ONLY: this script (and the template-parity.yml workflow that
-# runs it) makes no sense in an instantiated project — the /instantiate skill
-# removes them.
+# runs it) makes no sense in an instantiated project — TEMPLATE-USAGE.md tells
+# you to delete them when instantiating.
 #
 # Usage:
 #   bash .github/scripts/check-parity.sh <path-to-sibling-repo>
