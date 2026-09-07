@@ -38,7 +38,14 @@ jobs:
             echo "changed=0" >>"$GITHUB_OUTPUT"
             exit 0
           fi
-          git clone --quiet --filter=blob:none "$repo" /tmp/tpl
+          # A repository gets renamed and this pointer stays behind: GitHub
+          # redirects for a while, but once somebody claims the old name it stops
+          # resolving. Without this warning, the failure is a cryptic 'git clone'.
+          if ! git clone --quiet --filter=blob:none "$repo" /tmp/tpl 2>/dev/null; then
+            echo "::warning::Could not clone $repo. If the template was renamed, update 'repo=' in .template-origin."
+            echo "changed=0" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
           cd /tmp/tpl
           if ! git cat-file -e "$base^{commit}" 2>/dev/null; then
             echo "::warning::Base commit $base not found in the template; skipping."
