@@ -6,9 +6,8 @@
 #
 # To enable it:
 #   1. Rename this file to `ci.yml`.
-#   2. Replace the [*_COMMAND] steps with your project's (they are in AGENTS.md →
-#      "Setup & commands", and the `/instantiate` skill takes them from
-#      docs/architecture/stack.md in its Step 6).
+#   2. Replace the [*_COMMAND] steps with your project's (they are in the README's
+#      "Usage" block and in docs/architecture/stack.md).
 #   3. Delete this header.
 #
 # MIND THE NAME: GitHub runs ANY `.yml`/`.yaml` file inside `.github/workflows/`,
