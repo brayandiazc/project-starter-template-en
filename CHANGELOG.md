@@ -11,6 +11,8 @@ tooling, not its life (see `TEMPLATE-USAGE.md`).
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-09-07
+
 ### Added
 
 - **`check-labels.sh` — that the labels in `LABELS.md` actually exist in the
@@ -178,7 +180,8 @@ It is not reconstructed here: making it up would be worse than not having it.
 
 <!--
 Version comparison links:
-[Unreleased]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.0.0...v2.0.1
