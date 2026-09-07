@@ -11,6 +11,18 @@ tooling, not its life (see `TEMPLATE-USAGE.md`).
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-09-07
+
+### Fixed
+
+- **The parity workflow never ran in this variant.** Its `if` condition and the sibling
+  repository still named the AI variants, so the job showed up as "skipping" on every
+  PR. A check that does not run is worse than one that fails: the second one tells you.
+  It now compares against `project-starter-template-es`.
+- **The workflows pointed at skills that do not exist here** (`/instantiate`,
+  `/update-template`) and at `AGENTS.md`, which belongs to the AI variants. They now
+  point at `TEMPLATE-USAGE.md` and the README's "Usage" block, which is what is here.
+
 ## [2.0.0] - 2026-09-07
 
 ### Added
@@ -83,6 +95,7 @@ It is not reconstructed here: making it up would be worse than not having it.
 
 <!--
 Version comparison links:
-[Unreleased]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/brayandiazc/project-starter-template-en/compare/v1.4.0...v2.0.0
 -->
