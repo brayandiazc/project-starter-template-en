@@ -22,7 +22,7 @@ Concrete steps to verify the result, not the code:
 
 > CI already verifies formatting, links, the CHANGELOG entry and the test suite: there
 > are no checkboxes for that. Only the things that **fail silently** go here — they pass
-> the tests and produce no error in the monitor (`docs/conventions/ai-agents.md`).
+> the tests and produce no error in the monitor.
 
 - [ ] **Data schema reviewed by hand** — mandatory if there is a migration. It is the
       most expensive thing to change later and the only one neither tests nor monitoring

@@ -11,6 +11,34 @@ tooling, not its life (see `TEMPLATE-USAGE.md`).
 
 ## [Unreleased]
 
+### Added
+
+- **`check-labels.sh` — that the labels in `LABELS.md` actually exist in the
+  repository.** `LABELS.md` is the single source and `setup-labels.sh` creates them from
+  its tables, but creating them is a **manual** step, once per repository, and nothing
+  checked that it had been done. All five repos in this family had only GitHub's default
+  labels: not one of the eleven declared ones existed.
+
+  This is not cosmetic. `dependabot.yml` declares `sin-changelog` on its PRs so the
+  changelog job lets them through — without the label created, Dependabot cannot apply
+  it, the gate takes them down anyway, and **the fix looks done because the file says the
+  right thing**. The manual escape hatch did not work either: you cannot put a label that
+  does not exist on a PR.
+
+### Fixed
+
+- **`template-update-check.yml` blew up with a cryptic `git clone`** when the origin
+  repository no longer resolved. A repo gets renamed and the `repo=` in
+  `.template-origin` stays behind: GitHub redirects for a while, but once somebody claims
+  the old name it stops resolving. It now warns that it may have been renamed and says
+  which file to touch.
+- **The PR template cited `docs/conventions/ai-agents.md`**, which does not exist in this
+  variant. Everyone opening a PR read it, and `check-links.sh` did not see it because it
+  was a `code span`, not a link.
+- **Four comments in `run-tests.sh` pointed at `/instantiate` and `/update-template`** to
+  explain why a rule exists. There are no skills here: they now cite the step or
+  `TEMPLATE-USAGE.md`, which is what is actually there.
+
 ## [2.2.0] - 2026-09-07
 
 ### Fixed
