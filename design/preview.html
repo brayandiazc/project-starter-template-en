@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design system — token preview</title>
+
+    <!-- The ONLY source of truth. No value is copied into this file: if a color here
+         does not match the product, it means tokens.css changed and this page already
+         reflects it. That is why no drift check is needed. -->
+    <link rel="stylesheet" href="tokens.css" />
+
+    <style>
+      /* Only var(--token). No hex, no utilities from any framework: it exists to test
+         the tokens, so using anything else would be testing something else. */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1.5rem 5rem;
+        background: var(--base-100);
+        color: var(--base-content);
+        font-family: var(--sans);
+        line-height: 1.6;
+        transition: background var(--motion-transition) var(--ease-enter);
+      }
+      .wrap {
+        max-width: 60rem;
+        margin: 0 auto;
+      }
+      h1,
+      h2 {
+        font-family: var(--display);
+        line-height: 1.2;
+      }
+      h1 {
+        font-size: 2.25rem;
+        margin: 0;
+      }
+      h2 {
+        font-size: 1.25rem;
+        margin: 3rem 0 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--base-300);
+      }
+      .lead {
+        color: var(--base-content);
+        opacity: 0.7;
+        margin-top: 0.25rem;
+      }
+      code,
+      .mono {
+        font-family: var(--mono);
+        font-size: 0.85em;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      /* ── Paleta ─────────────────────────────────────────────────────────── */
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+        gap: 0.75rem;
+      }
+      .sw {
+        border: 1px solid var(--base-300);
+        border-radius: var(--box);
+        overflow: hidden;
+      }
+      .sw .chip {
+        padding: 1.25rem 0.875rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+      .sw .meta {
+        padding: 0.5rem 0.875rem 0.75rem;
+        background: var(--base-100);
+        font-size: 0.75rem;
+        line-height: 1.5;
+      }
+      .sw .meta b {
+        font-family: var(--mono);
+        font-weight: 500;
+      }
+      .ratio {
+        display: inline-block;
+        padding: 0 0.4rem;
+        border-radius: 999px;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+      .pass {
+        background: var(--success);
+        color: var(--success-content);
+      }
+      .fail {
+        background: var(--error);
+        color: var(--error-content);
+      }
+
+      /* ── Botones ────────────────────────────────────────────────────────── */
+      .row {
+        display: flex;
+        gap: 0.625rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .btn {
+        font: inherit;
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 0.55rem 1.1rem;
+        border: 1px solid transparent;
+        border-radius: var(--field);
+        cursor: pointer;
+        transition: filter var(--motion-micro) var(--ease-enter);
+      }
+      .btn:hover:not(:disabled) {
+        filter: brightness(0.92);
+      }
+      .btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .btn:active:not(:disabled) {
+        filter: brightness(0.85);
+      }
+      .btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: var(--primary-content);
+      }
+      .btn-secondary {
+        background: var(--secondary);
+        color: var(--secondary-content);
+      }
+      .btn-accent {
+        background: var(--accent);
+        color: var(--accent-content);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--base-content);
+        border-color: var(--base-300);
+      }
+
+      /* ── Formulario ─────────────────────────────────────────────────────── */
+      .field {
+        display: grid;
+        gap: 0.3rem;
+        margin-bottom: 1rem;
+        max-width: 22rem;
+      }
+      label {
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+      input,
+      select {
+        font: inherit;
+        font-size: 0.9rem;
+        padding: 0.5rem 0.7rem;
+        border: 1px solid var(--base-300);
+        border-radius: var(--field);
+        background: var(--base-100);
+        color: var(--base-content);
+      }
+      input:focus-visible,
+      select:focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 1px;
+        border-color: var(--primary);
+      }
+      .invalid {
+        border-color: var(--error);
+      }
+      .hint {
+        font-size: 0.78rem;
+        opacity: 0.7;
+      }
+      .hint.err {
+        color: var(--error);
+        opacity: 1;
+      }
+
+      /* ── Superficies y estados ──────────────────────────────────────────── */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+        gap: 0.75rem;
+      }
+      .card {
+        border: 1px solid var(--base-300);
+        border-radius: var(--box);
+        padding: 1rem;
+      }
+      .b100 {
+        background: var(--base-100);
+      }
+      .b200 {
+        background: var(--base-200);
+      }
+      .b300 {
+        background: var(--base-300);
+      }
+
+      .skeleton > i {
+        display: block;
+        height: 0.7rem;
+        margin-bottom: 0.5rem;
+        border-radius: var(--field);
+        background: var(--base-300);
+        animation: pulse 1.4s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        50% {
+          opacity: 0.45;
+        }
+      }
+      .empty {
+        text-align: center;
+        padding: 1.5rem 1rem;
+      }
+      .empty .glyph {
+        font-size: 1.6rem;
+        opacity: 0.5;
+      }
+
+      .alert {
+        display: flex;
+        gap: 0.6rem;
+        padding: 0.7rem 0.9rem;
+        border-radius: var(--field);
+        font-size: 0.88rem;
+        margin-bottom: 0.5rem;
+      }
+      .a-info {
+        background: var(--info);
+        color: var(--info-content);
+      }
+      .a-success {
+        background: var(--success);
+        color: var(--success-content);
+      }
+      .a-warning {
+        background: var(--warning);
+        color: var(--warning-content);
+      }
+      .a-error {
+        background: var(--error);
+        color: var(--error-content);
+      }
+
+      .scale > div {
+        margin-bottom: 0.35rem;
+      }
+      /* ── Registro herramienta ───────────────────────────────────────────── */
+      .tool {
+        border: 1px solid var(--base-300);
+        border-radius: var(--box);
+        overflow: hidden;
+        font-size: 0.8rem;
+      }
+      .tbar {
+        display: flex;
+        gap: 0.3rem;
+        align-items: center;
+        padding: 0.4rem 0.5rem;
+        background: var(--base-200);
+        border-bottom: 1px solid var(--base-300);
+      }
+      .tbtn {
+        padding: 0.2rem 0.55rem;
+        border-radius: var(--field);
+        cursor: default;
+      }
+      .tbtn.on {
+        background: var(--primary);
+        color: var(--primary-content);
+      }
+      .tbtn.accent {
+        background: var(--accent);
+        color: var(--accent-content);
+        font-weight: 600;
+      }
+      .tbody {
+        display: flex;
+        min-height: 8rem;
+      }
+      .tpanel {
+        width: 9rem;
+        padding: 0.4rem;
+        background: var(--base-200);
+        border-right: 1px solid var(--base-300);
+      }
+      .tlabel {
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.6;
+        margin-bottom: 0.3rem;
+      }
+      .titem {
+        padding: 0.22rem 0.4rem;
+        border-radius: var(--field);
+      }
+      .titem.sel {
+        background: var(--primary);
+        color: var(--primary-content);
+      }
+      .tcanvas {
+        flex: 1;
+        display: grid;
+        place-items: center;
+        background: var(--base-300);
+      }
+      .tframe {
+        width: 60%;
+        height: 60%;
+        display: grid;
+        place-items: center;
+        background: var(--base-100);
+        border: 1px solid var(--neutral);
+        border-radius: var(--field);
+        opacity: 0.9;
+      }
+      .ttime {
+        display: flex;
+        gap: 2px;
+        padding: 0.4rem;
+        background: var(--base-200);
+        border-top: 1px solid var(--base-300);
+      }
+      .tclip {
+        height: 1.4rem;
+        border-radius: 3px;
+        background: var(--neutral);
+      }
+      .tclip.accent {
+        background: var(--accent);
+      }
+
+      /* ── Navigation ─────────────────────────────────────────────────────── */
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        padding: 0.7rem 1rem;
+        background: var(--base-200);
+        border: 1px solid var(--base-300);
+        border-radius: var(--box);
+      }
+      .brand {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 1.05rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .logo {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: var(--field);
+        background: var(--primary);
+      }
+      .nav a {
+        color: var(--base-content);
+        text-decoration: none;
+        font-size: 0.88rem;
+        padding: 0.3rem 0;
+        border-bottom: 2px solid transparent;
+      }
+      .nav a:hover {
+        border-bottom-color: var(--base-300);
+      }
+      .nav a[aria-current] {
+        border-bottom-color: var(--primary);
+        font-weight: 600;
+      }
+      .avatar {
+        width: 1.9rem;
+        height: 1.9rem;
+        border-radius: 999px;
+        background: var(--accent);
+        color: var(--accent-content);
+        display: grid;
+        place-items: center;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+      .crumbs {
+        font-size: 0.8rem;
+        opacity: 0.75;
+        margin-top: 0.6rem;
+      }
+      .crumbs a {
+        color: var(--primary);
+      }
+
+      /* ── Badges ─────────────────────────────────────────────────────────── */
+      .badge {
+        display: inline-block;
+        padding: 0.12rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+      .b-primary {
+        background: var(--primary);
+        color: var(--primary-content);
+      }
+      .b-success {
+        background: var(--success);
+        color: var(--success-content);
+      }
+      .b-warning {
+        background: var(--warning);
+        color: var(--warning-content);
+      }
+      .b-error {
+        background: var(--error);
+        color: var(--error-content);
+      }
+      .b-outline {
+        border: 1px solid var(--base-300);
+        color: var(--base-content);
+        opacity: 0.85;
+      }
+
+      /* ── Card con media ─────────────────────────────────────────────────── */
+      .media {
+        height: 6.5rem;
+        border-radius: var(--field);
+        margin: -0.25rem 0 0.75rem;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+      }
+      .card h3 {
+        margin: 0 0 0.3rem;
+        font-family: var(--display);
+        font-size: 1rem;
+      }
+      .card .foot {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        margin-top: 0.9rem;
+      }
+
+      /* ── Tabla ──────────────────────────────────────────────────────────── */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 0.55rem 0.7rem;
+        border-bottom: 1px solid var(--base-300);
+      }
+      thead th {
+        background: var(--base-200);
+        font-size: 0.74rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.75;
+      }
+      tbody tr:hover {
+        background: var(--base-200);
+      }
+      .tbl {
+        border: 1px solid var(--base-300);
+        border-radius: var(--box);
+        overflow: hidden;
+      }
+
+      /* ── Native dialog ──────────────────────────────────────────────────── */
+      dialog {
+        border: 1px solid var(--base-300);
+        border-radius: var(--box);
+        background: var(--base-100);
+        color: var(--base-content);
+        padding: 1.25rem;
+        max-width: 24rem;
+        font-family: var(--sans);
+      }
+      dialog::backdrop {
+        background: color-mix(in oklab, var(--base-content) 55%, transparent);
+      }
+
+      /* ── Progreso y tabs ────────────────────────────────────────────────── */
+      .bar {
+        height: 0.45rem;
+        border-radius: 999px;
+        background: var(--base-300);
+        overflow: hidden;
+      }
+      .bar > span {
+        display: block;
+        height: 100%;
+        background: var(--primary);
+      }
+      .tabs {
+        display: flex;
+        gap: 0.25rem;
+        border-bottom: 1px solid var(--base-300);
+        margin-bottom: 0.75rem;
+      }
+      .tab {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+        border-bottom: 2px solid transparent;
+        cursor: default;
+      }
+      .tab[aria-selected="true"] {
+        border-bottom-color: var(--primary);
+        font-weight: 600;
+      }
+
+      /* ── Footer ─────────────────────────────────────────────────────────── */
+      .foot-site {
+        margin-top: 1rem;
+        padding: 1.25rem 1rem;
+        background: var(--base-200);
+        border: 1px solid var(--base-300);
+        border-radius: var(--box);
+        font-size: 0.85rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .foot-site a {
+        color: var(--base-content);
+        opacity: 0.75;
+        text-decoration: none;
+        margin-right: 0.9rem;
+      }
+      .foot-site a:hover {
+        opacity: 1;
+        text-decoration: underline;
+      }
+
+      .note {
+        border-left: 3px solid var(--accent);
+        padding: 0.6rem 0.9rem;
+        background: var(--base-200);
+        border-radius: 0 var(--field) var(--field) 0;
+        font-size: 0.88rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header>
+        <div>
+          <h1>Design system</h1>
+          <p class="lead">
+            A preview of <code>tokens.css</code>. Change a value there, reload,
+            and you see it applied here — there are no copied values on this
+            page.
+          </p>
+        </div>
+        <button class="btn btn-ghost" id="toggle" aria-live="polite">
+          Theme: light
+        </button>
+      </header>
+
+      <p class="note">
+        <strong>To decide on a palette:</strong> edit the
+        <code>:root</code> blocks in <code>tokens.css</code> —the light one and
+        the two dark ones— and reload. The contrasts below recompute themselves:
+        if one comes out red, that combination does not meet
+        <strong>WCAG AA</strong> and is not used for text.
+      </p>
+
+      <h2>Palette and contrast</h2>
+      <p class="lead">
+        Each token over its <code>-content</code>. The ratio is measured in the
+        browser over the already-resolved color, so it reflects the active
+        theme.
+      </p>
+      <div class="swatches" id="swatches"></div>
+
+      <h2>Typography</h2>
+      <div class="scale">
+        <div
+          style="
+            font-family: var(--display);
+            font-size: 2.25rem;
+            font-weight: 700;
+          "
+        >
+          Display 36 · Space Grotesk
+        </div>
+        <div
+          style="
+            font-family: var(--display);
+            font-size: 1.5rem;
+            font-weight: 600;
+          "
+        >
+          Heading 24 · Space Grotesk
+        </div>
+        <div style="font-size: 1rem">
+          Body 16 · Inter — the one actually read. If this is not comfortable to
+          read, the rest does not matter.
+        </div>
+        <div style="font-size: 0.85rem; opacity: 0.7">
+          Secondary 14 · Inter with opacity, not a new grey
+        </div>
+        <div class="mono">Code · JetBrains Mono</div>
+      </div>
+      <p class="hint">
+        All three are loaded self-hosted via Fontsource in the product. Here you
+        will see the system
+        <em>fallbacks</em> if you do not have them installed — that is expected.
+      </p>
+
+      <h2>Navigation</h2>
+      <nav class="nav">
+        <span class="brand"><span class="logo"></span>Product</span>
+        <a href="#" aria-current="page">Dashboard</a>
+        <a href="#">Projects</a>
+        <a href="#">Settings</a>
+        <span style="flex: 1"></span>
+        <button class="btn btn-primary">New</button>
+        <span class="avatar" title="[AUTOR]">AB</span>
+      </nav>
+      <p class="crumbs">
+        <a href="#">Projects</a> / <a href="#">Sample project</a> / Detail
+      </p>
+
+      <div class="tabs" role="tablist" style="margin-top: 1.25rem">
+        <span class="tab" role="tab" aria-selected="true">Overview</span>
+        <span class="tab" role="tab">Activity</span>
+        <span class="tab" role="tab">Settings</span>
+      </div>
+
+      <h2>Buttons and interaction states</h2>
+      <div class="row">
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-secondary">Secondary</button>
+        <button class="btn btn-accent">Accent</button>
+        <button class="btn btn-ghost">Ghost</button>
+        <button class="btn btn-primary" disabled>Disabled</button>
+      </div>
+      <p class="hint">
+        Hover, hold down and <strong>navigate with Tab</strong>: hover, active
+        and visible focus are on all four. Focus is the one most often forgotten
+        and the one that breaks the keyboard.
+      </p>
+
+      <h2>Status badges</h2>
+      <div class="row">
+        <span class="badge b-primary">Active</span>
+        <span class="badge b-success">Published</span>
+        <span class="badge b-warning">Draft</span>
+        <span class="badge b-error">Expired</span>
+        <span class="badge b-outline">Archived</span>
+      </div>
+
+      <h2>Form</h2>
+      <div class="field">
+        <label for="e">Email</label>
+        <input id="e" type="email" placeholder="hello@example.com" />
+        <span class="hint">We send the confirmation here.</span>
+      </div>
+      <div class="field">
+        <label for="p">Plan</label>
+        <select id="p">
+          <option>Starter</option>
+          <option>Pro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="x">With an error</label>
+        <input id="x" class="invalid" value="not-an-email" />
+        <span class="hint err">Enter a valid email, with @ and a domain.</span>
+      </div>
+
+      <h2>Cards</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="media"></div>
+          <h3>Sample project</h3>
+          <p class="hint">12 renders · updated 2 h ago</p>
+          <div class="foot">
+            <span class="badge b-success">Published</span>
+            <span style="flex: 1"></span>
+            <button class="btn btn-ghost">Open</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Plan usage</h3>
+          <p class="hint">68 of 100 renders this month</p>
+          <div class="bar" style="margin-top: 0.7rem">
+            <span style="width: 68%"></span>
+          </div>
+          <div class="foot">
+            <button class="btn btn-primary">Upgrade plan</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Native dialog</h3>
+          <p class="hint">
+            The browser's <code>&lt;dialog&gt;</code>: focus trap, Escape and
+            backdrop for free. The native-primitives rule, working.
+          </p>
+          <div class="foot">
+            <button class="btn btn-accent" id="open-dlg">Open dialog</button>
+          </div>
+        </div>
+      </div>
+
+      <dialog id="dlg">
+        <h3 style="margin-top: 0; font-family: var(--display)">
+          Delete the project?
+        </h3>
+        <p style="font-size: 0.9rem">
+          Its 12 renders will be deleted. This action cannot be undone.
+        </p>
+        <div class="row" style="justify-content: flex-end; margin-top: 1rem">
+          <button class="btn btn-ghost" id="close-dlg">Cancel</button>
+          <button
+            class="btn btn-primary"
+            style="background: var(--error); color: var(--error-content)"
+          >
+            Delete
+          </button>
+        </div>
+      </dialog>
+
+      <h2>Table</h2>
+      <div class="tbl">
+        <table>
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Renders</th>
+              <th>Status</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sample project</td>
+              <td>12</td>
+              <td><span class="badge b-success">Published</span></td>
+              <td>2 h ago</td>
+            </tr>
+            <tr>
+              <td>Second item</td>
+              <td>4</td>
+              <td><span class="badge b-warning">Draft</span></td>
+              <td>yesterday</td>
+            </tr>
+            <tr>
+              <td>Third item</td>
+              <td>0</td>
+              <td><span class="badge b-outline">Archived</span></td>
+              <td>12 Jun</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The four data states</h2>
+      <p class="lead">
+        No view is called done without all four. Empty is the one most often
+        skipped and the one that most defines the product.
+      </p>
+      <div class="cards">
+        <div class="card skeleton">
+          <strong style="font-size: 0.8rem; opacity: 0.6">Loading</strong>
+          <i style="width: 70%; margin-top: 0.6rem"></i
+          ><i style="width: 90%"></i>
+          <i style="width: 45%"></i>
+        </div>
+        <div class="card empty">
+          <div class="glyph">◍</div>
+          <strong>No projects yet</strong>
+          <p class="hint">Create the first one to see your renders here.</p>
+          <button class="btn btn-primary">Create project</button>
+        </div>
+        <div class="card">
+          <div class="alert a-error">The list could not be loaded.</div>
+          <button class="btn btn-ghost">Retry</button>
+        </div>
+        <div class="card">
+          <div class="alert a-success">Saved successfully.</div>
+          <p class="hint">Three projects · updated a moment ago</p>
+        </div>
+      </div>
+
+      <h2>Surfaces</h2>
+      <div class="cards">
+        <div class="card b100">
+          <code>base-100</code>
+          <p class="hint">Main background</p>
+        </div>
+        <div class="card b200">
+          <code>base-200</code>
+          <p class="hint">Alternate background</p>
+        </div>
+        <div class="card b300">
+          <code>base-300</code>
+          <p class="hint">Borders and subtle areas</p>
+        </div>
+      </div>
+
+      <h2>In the “tool” register</h2>
+      <p class="lead">
+        The same tokens in a dense interface —editor, timeline, panel— which is
+        a different world from a document view: stacked surfaces, small
+        controls, visible selection and almost always dark by default. It is
+        here to see whether the palette holds up there, not as a layout
+        proposal.
+      </p>
+      <div class="tool">
+        <div class="tbar">
+          <span class="tbtn on">Select</span><span class="tbtn">Cut</span
+          ><span class="tbtn">Text</span>
+          <span style="flex: 1"></span>
+          <span class="tbtn accent">Export</span>
+        </div>
+        <div class="tbody">
+          <div class="tpanel">
+            <div class="tlabel">Layers</div>
+            <div class="titem sel">Background</div>
+            <div class="titem">Heading</div>
+            <div class="titem">Image 01</div>
+          </div>
+          <div class="tcanvas">
+            <div class="tframe">canvas</div>
+          </div>
+        </div>
+        <div class="ttime">
+          <span class="tclip" style="width: 34%"></span>
+          <span class="tclip accent" style="width: 18%"></span>
+          <span class="tclip" style="width: 26%"></span>
+        </div>
+      </div>
+      <p class="hint">
+        If the palette flattens out here —everything grey, the selection
+        indistinguishable, the accent not standing out— the problem is not the
+        layout: it is the tokens, and more than one surface level is needed. See
+        the note on density in <code>README.md</code>.
+      </p>
+
+      <h2>Feedback</h2>
+      <div class="alert a-info">Info: something worth knowing.</div>
+      <div class="alert a-success">Success: the action completed.</div>
+      <div class="alert a-warning">Warning: check this before continuing.</div>
+      <div class="alert a-error">Error: the action could not be completed.</div>
+
+      <h2>Footer</h2>
+      <footer class="foot-site">
+        <div>
+          <span class="brand" style="font-size: 0.95rem"
+            ><span class="logo"></span>Product</span
+          >
+          <p class="hint" style="margin: 0.4rem 0 0">
+            One sentence saying what it does.
+          </p>
+        </div>
+        <div>
+          <a href="#">Pricing</a><a href="#">Privacy</a><a href="#">Terms</a>
+          <p class="hint" style="margin: 0.4rem 0 0">© [YEAR] [PROJECT_NAME]</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // The browser already knows how to convert oklch() to RGB. Instead of
+      // reimplementing the conversion —and getting it wrong—, we ask it to paint the
+      // color and read the pixel. That way the ratio comes from the REAL color shown.
+      const cv = document.createElement("canvas").getContext("2d", {
+        willReadFrequently: true,
+      });
+      function rgb(color) {
+        cv.clearRect(0, 0, 1, 1);
+        cv.fillStyle = color;
+        cv.fillRect(0, 0, 1, 1);
+        return cv.getImageData(0, 0, 1, 1).data;
+      }
+      const lum = ([r, g, b]) =>
+        [r, g, b]
+          .map((v) => v / 255)
+          .map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+          .reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
+      function ratio(a, b) {
+        const [x, y] = [lum(rgb(a)), lum(rgb(b))].sort((m, n) => n - m);
+        return (x + 0.05) / (y + 0.05);
+      }
+      const hex = (c) =>
+        "#" +
+        [...rgb(c)]
+          .slice(0, 3)
+          .map((v) => v.toString(16).padStart(2, "0"))
+          .join("")
+          .toUpperCase();
+
+      // The list is DERIVED from the loaded stylesheets: any `--x` that has its
+      // `--x-content` pair is a system surface, so a new token added by /identity
+      // shows up here on its own. (The base-* surfaces share a single
+      // --base-content and are validated by eye in the rest of the preview.) If the
+      // browser will not let the rules be read (some do not with file://), it falls
+      // back to the known list.
+      const TOKENS_FALLBACK = [
+        "primary",
+        "secondary",
+        "accent",
+        "neutral",
+        "info",
+        "success",
+        "warning",
+        "error",
+      ];
+      function tokenPairs() {
+        try {
+          const props = new Set();
+          for (const sheet of document.styleSheets)
+            for (const rule of sheet.cssRules)
+              if (rule.style)
+                for (const p of rule.style)
+                  if (p.startsWith("--")) props.add(p.slice(2));
+          const pairs = [...props].filter((p) => props.has(p + "-content"));
+          return pairs.length ? pairs : TOKENS_FALLBACK;
+        } catch {
+          return TOKENS_FALLBACK;
+        }
+      }
+      const TOKENS = tokenPairs();
+
+      function render() {
+        const cs = getComputedStyle(document.documentElement);
+        document.getElementById("swatches").innerHTML = TOKENS.map((t) => {
+          const bg = cs.getPropertyValue(`--${t}`).trim();
+          const fg = cs.getPropertyValue(`--${t}-content`).trim();
+          const r = ratio(bg, fg);
+          const ok = r >= 4.5;
+          return `<div class="sw">
+            <div class="chip" style="background:${bg};color:${fg}">${t}</div>
+            <div class="meta">
+              <b>${hex(bg)}</b> on <b>${hex(fg)}</b><br>
+              <span class="ratio ${ok ? "pass" : "fail"}">${r.toFixed(2)}:1</span>
+              ${ok ? "AA ✓" : "fails AA (4.5:1)"}
+            </div>
+          </div>`;
+        }).join("");
+      }
+
+      const btn = document.getElementById("toggle");
+      btn.addEventListener("click", () => {
+        const dark = document.documentElement.dataset.theme === "dark";
+        document.documentElement.dataset.theme = dark ? "light" : "dark";
+        btn.textContent = `Theme: ${dark ? "light" : "dark"}`;
+        render(); // the tokens changed: the contrasts have to be recomputed
+      });
+
+      // The native <dialog> brings a focus trap, Escape and a backdrop without a line
+      // of CSS or accessibility work on our side. That is the whole justification of
+      // the rule.
+      const dlg = document.getElementById("dlg");
+      document.getElementById("open-dlg").onclick = () => dlg.showModal();
+      document.getElementById("close-dlg").onclick = () => dlg.close();
+
+      render();
+    </script>
+  </body>
+</html>

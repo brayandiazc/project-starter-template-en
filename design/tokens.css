@@ -1,0 +1,227 @@
+/* Base design tokens — a starting palette, deliberately neutral.
+ * This is NOT the product's brand: `/identity` defines that and replaces these values.
+ *
+ * FRAMEWORK-AGNOSTIC ON PURPOSE. What lives in `:root` are standard CSS custom
+ * properties: any browser reads them and any stack consumes them —Tailwind,
+ * Bootstrap, your own CSS, CSS-in-JS, Sass— without changing a line. What IS
+ * specific to a framework goes below, in a single block marked as the ADAPTER,
+ * which you replace with your stack's.
+ *
+ * How it works:
+ *   1. `:root` defines the palette as custom properties. Here it carries the
+ *      LIGHT theme, which is what a work product (CRUD, dashboard) asks for.
+ *   2. The dark blocks redefine them — via `prefers-color-scheme` and via
+ *      `[data-theme="dark"]`, so the UI toggle wins in both directions.
+ *   3. The ADAPTER at the end exposes them to whichever UI framework you use, if
+ *      you use one at all. The theme switch is immediate at runtime because the
+ *      adapter references `var(--…)` instead of copying the value.
+ *
+ * IF THE PRODUCT IS DARK-FIRST (an editor, a timeline, a dense panel — see the
+ * register table in `/identity`), using the toggle is not enough: you have to
+ * **invert the blocks**, because `:root` is what is seen before anyone chooses.
+ *   - Move the dark palette to `:root` and the light one to `:root[data-theme="light"]`.
+ *   - Change the media query to `prefers-color-scheme: light` with
+ *     `:root:not([data-theme="dark"])`.
+ *   - Adjust each block's `color-scheme`.
+ * The invariant that is not negotiable is that the three blocks stay coherent and
+ * AA in both themes — `design/preview.html` verifies it.
+ *
+ * Usage: import it before your framework's stylesheet, so its variables see these
+ * values already defined.
+ *
+ * The names (`base-100`, `*-content`) are kept on purpose: they describe the
+ * surface/content relationship and work with or without a component library.
+ *
+ * Never use raw hex or raw palette utilities (`bg-blue-500`, `--bs-blue`) in
+ * components: only these semantic tokens.
+ * See ./README.md and ../docs/conventions/ui.md. */
+
+:root {
+  color-scheme: light;
+
+  /* The comments say WHAT each token DOES, not which palette the value came from:
+   * when the product is re-branded the values change and a "slate-900" noted next
+   * to it is left lying. The role survives a rebrand; the origin does not. */
+
+  /* Surfaces */
+  --base-100: oklch(100% 0 0); /* background surface */
+  --base-200: oklch(98.4% 0.003 247.858); /* elevated surface (cards) */
+  --base-300: oklch(96.8% 0.007 247.896); /* borders and separators */
+  --base-content: oklch(20.8% 0.042 265.755); /* text on the surfaces */
+
+  /* Primary (CTA, branding) */
+  --primary: oklch(54.1% 0.102 258); /* brand color, AA over base-100 */
+  --primary-content: oklch(100% 0 0);
+
+  /* Secondary */
+  --secondary: oklch(44.6% 0.043 257.281); /* supporting actions */
+  --secondary-content: oklch(100% 0 0);
+
+  /* Accent (highlights, premium) */
+  --accent: oklch(67.9% 0.213 70); /* highlights, deliberately used sparingly */
+  --accent-content: oklch(20.8% 0.042 265.755);
+
+  /* Neutral */
+  --neutral: oklch(37.2% 0.044 257.287); /* chrome: bars, chips, headers */
+  --neutral-content: oklch(100% 0 0);
+
+  /* Estados */
+  --info: oklch(62.3% 0.214 259.815);
+  --info-content: oklch(100% 0 0);
+  --success: oklch(69.6% 0.17 162.48);
+  --success-content: oklch(100% 0 0);
+  --warning: oklch(76.9% 0.188 70.08);
+  --warning-content: oklch(20.8% 0.042 265.755);
+  --error: oklch(64.5% 0.246 16.439);
+  --error-content: oklch(100% 0 0);
+}
+
+/* Automatic dark — unless the UI explicitly pinned light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --base-100: oklch(20.8% 0.042 265.755); /* slate-900 */
+    --base-200: oklch(27.9% 0.041 260.031); /* slate-800 */
+    --base-300: oklch(37.2% 0.044 257.287); /* slate-700 */
+    --base-content: oklch(98.4% 0.003 247.858);
+
+    --primary: oklch(
+      72% 0.114 258
+    ); /* recalculated, AA over the dark background */
+    --primary-content: oklch(20.8% 0.042 265.755);
+    --secondary: oklch(71.1% 0.035 256.788);
+    --secondary-content: oklch(20.8% 0.042 265.755);
+    --accent: oklch(
+      72.7% 0.173 70
+    ); /* recalculated by lightness, not inverted */
+    --accent-content: oklch(20.8% 0.042 265.755);
+    --neutral: oklch(44.6% 0.043 257.281);
+    --neutral-content: oklch(98.4% 0.003 247.858);
+
+    --info: oklch(71.4% 0.143 254.624);
+    --info-content: oklch(20.8% 0.042 265.755);
+    --success: oklch(76.5% 0.177 163.223);
+    --success-content: oklch(20.8% 0.042 265.755);
+    --warning: oklch(82.8% 0.189 84.429);
+    --warning-content: oklch(20.8% 0.042 265.755);
+    --error: oklch(71.2% 0.194 13.428);
+    --error-content: oklch(20.8% 0.042 265.755);
+  }
+}
+
+/* Explicit dark — the toggle wins over the system preference. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --base-100: oklch(20.8% 0.042 265.755);
+  --base-200: oklch(27.9% 0.041 260.031);
+  --base-300: oklch(37.2% 0.044 257.287);
+  --base-content: oklch(98.4% 0.003 247.858);
+
+  --primary: oklch(72% 0.114 258);
+  --primary-content: oklch(20.8% 0.042 265.755);
+  --secondary: oklch(71.1% 0.035 256.788);
+  --secondary-content: oklch(20.8% 0.042 265.755);
+  --accent: oklch(72.7% 0.173 70);
+  --accent-content: oklch(20.8% 0.042 265.755);
+  --neutral: oklch(44.6% 0.043 257.281);
+  --neutral-content: oklch(98.4% 0.003 247.858);
+
+  --info: oklch(71.4% 0.143 254.624);
+  --info-content: oklch(20.8% 0.042 265.755);
+  --success: oklch(76.5% 0.177 163.223);
+  --success-content: oklch(20.8% 0.042 265.755);
+  --warning: oklch(82.8% 0.189 84.429);
+  --warning-content: oklch(20.8% 0.042 265.755);
+  --error: oklch(71.2% 0.194 13.428);
+  --error-content: oklch(20.8% 0.042 265.755);
+}
+
+/* ==========================================================================
+ * ADAPTER TO THE UI FRAMEWORK — the ONLY part of this file that depends on a
+ * concrete technology. Everything above is standard CSS and is not touched.
+ *
+ * What follows is AN EXAMPLE, written for Tailwind v4 because a complete one you
+ * could read was needed. It is neither the recommended option nor the only
+ * supported one: **design can be built however you like**. Delete this block and
+ * write your stack's hook, whatever it is.
+ *
+ * The adapter's shape changes with every technology —a map of custom properties,
+ * a variables file, a theme object in JS, nothing at all if you use plain CSS—.
+ * What does not change are two rules:
+ *
+ *   1. **The adapter references `var(--…)`, it never copies the value.** A copy
+ *      freezes the theme and the light/dark toggle stops working at runtime.
+ *   2. **It translates roles, not colors.** On the other side of the adapter you
+ *      speak of `primary` and `base-content`, never of "blue".
+ * ========================================================================== */
+
+@theme inline {
+  --color-base-100: var(--base-100);
+  --color-base-200: var(--base-200);
+  --color-base-300: var(--base-300);
+  --color-base-content: var(--base-content);
+
+  --color-primary: var(--primary);
+  --color-primary-content: var(--primary-content);
+  --color-secondary: var(--secondary);
+  --color-secondary-content: var(--secondary-content);
+  --color-accent: var(--accent);
+  --color-accent-content: var(--accent-content);
+  --color-neutral: var(--neutral);
+  --color-neutral-content: var(--neutral-content);
+
+  --color-info: var(--info);
+  --color-info-content: var(--info-content);
+  --color-success: var(--success);
+  --color-success-content: var(--success-content);
+  --color-warning: var(--warning);
+  --color-warning-content: var(--warning-content);
+  --color-error: var(--error);
+  --color-error-content: var(--error-content);
+
+  /* Geometry — `rounded-field` on fields and buttons, `rounded-box` on cards */
+  --radius-field: var(--field);
+  --radius-box: var(--box);
+
+  /* Typography — `font-sans`, `font-display`, `font-mono` */
+  --font-sans: var(--sans);
+  --font-display: var(--display);
+  --font-mono: var(--mono);
+}
+
+/* ---- Geometry, typography and motion ----
+ * In `:root` and not inside an at-rule: a browser ignores at-rules it does not
+ * know, so anything living only in there does not exist for a plain HTML file —
+ * and `preview.html` needs to read it. The values go here; the adapter
+ * references them. A single source. */
+
+:root {
+  --field: 0.5rem;
+  --box: 0.75rem;
+
+  --sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --motion-micro: 150ms; /* hover, toggles */
+  --motion-transition: 250ms; /* enter/exit */
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1); /* ease-out */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1); /* ease-in */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

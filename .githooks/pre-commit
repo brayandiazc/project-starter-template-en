@@ -1,34 +1,82 @@
 #!/usr/bin/env bash
-# Optional guardrail: block direct commits on protected branches and reject
-# staged secret files (real .env files, private keys, certificates).
-# Enable it in your clone with:  git config core.hooksPath .githooks
-set -euo pipefail
+# pre-commit — formats what is staged and re-stages it.
+#
+# Formatting is not a decision, it is noise: that is why this hook NEVER blocks the
+# commit. It fixes what it can, warns about what it cannot, and always exits 0. A
+# hook that blocks over formatting only teaches people to use `git commit --no-verify`.
+#
+# Scope: the STAGED files Prettier understands without plugins (md, html, css, json,
+# yml). Application code is the stack linter's business
+# (docs/conventions/quality-tooling.md).
+#
+# Enabling (once per clone, not versioned in .git/config):
+#   git config core.hooksPath .githooks
+#
+# Skipping it just this once: git commit --no-verify
+set -uo pipefail
 
-branch="$(git symbolic-ref --short -q HEAD 2>/dev/null || true)"
-case "$branch" in
-  main|master|develop)
-    echo "⛔ git-guardrails: don't commit directly on '$branch'. Create a feat/…|fix/…|docs/…|chore/… branch (CONTRIBUTING.md)." >&2
-    exit 1
-    ;;
-esac
+# ── Staged files that concern us ─────────────────────────────────────────────
+# --diff-filter=ACMR: added, copied, modified and renamed; deletions are not
+# formatted. quotePath=false so names with accents come out as they are and not
+# escaped ("documentaci\303\263n.md").
+staged="$(git -c core.quotePath=false diff --cached --name-only --diff-filter=ACMR \
+  | grep -Ei '\.(md|html|css|json|ya?ml)$' || true)"
 
-# No secrets in the history: reject staged secret files.
+[ -z "$staged" ] && exit 0
+
+if ! command -v npx > /dev/null 2>&1; then
+	echo "pre-commit: no Node.js (npx), nothing formatted. CI will check it anyway." >&2
+	exit 0
+fi
+
+# ── Only files that are entirely staged ──────────────────────────────────────
+# If a file also has unstaged changes, formatting and re-staging it would pull
+# into the commit work you decided to leave out. That one is skipped.
+declare -a files=()
+declare -a skipped=()
+
 while IFS= read -r f; do
-  base="${f##*/}"
-  case "$base" in
-    # Configuration templates are fine: they are the contract, no real values.
-    .env.example|.env.sample|.env.template) continue ;;
-    # The real .env (and variants such as .env.local, .env.production).
-    .env|.env.*)
-      echo "⛔ git-guardrails: don't commit '$f': real environment values never enter the history. Commit .env.example instead (SECURITY.md)." >&2
-      exit 1
-      ;;
-    # Private keys and certificates.
-    *.pem|*.key|id_rsa|id_rsa.*|id_ed25519|id_ed25519.*|id_ecdsa|id_ecdsa.*)
-      echo "⛔ git-guardrails: don't commit '$f': it looks like a private key or certificate (SECURITY.md)." >&2
-      exit 1
-      ;;
-  esac
-done < <(git diff --cached --name-only --diff-filter=ACMR)
+	[ -z "$f" ] && continue
+	[ -f "$f" ] || continue
+	if [ -n "$(git -c core.quotePath=false diff --name-only -- "$f")" ]; then
+		skipped+=("$f")
+	else
+		files+=("$f")
+	fi
+done <<< "$staged"
+
+if [ "${#skipped[@]}" -gt 0 ]; then
+	echo "pre-commit: not formatted (they have unstaged changes):" >&2
+	printf '   · %s\n' "${skipped[@]}" >&2
+fi
+
+[ "${#files[@]}" -eq 0 ] && exit 0
+
+# ── Format and re-stage ──────────────────────────────────────────────────────
+# The Prettier version is READ from format.sh, which is where it lives pinned.
+# Writing it in two places guarantees they drift apart, and two versions of a
+# formatter in the same repo fight each other: `pre-commit` formats one way and the
+# CI check demands another. If it cannot be read, it falls back to `prettier@3`
+# (the previous behavior): worse, but it never blocks the commit.
+PRETTIER="$(sed -n 's/^PRETTIER="\(.*\)"$/\1/p' .github/scripts/format.sh 2>/dev/null || true)"
+[ -n "$PRETTIER" ] || PRETTIER="prettier@3"
+
+# --log-level warn: silence when there is nothing to say. If Prettier fails (e.g. a
+# malformed JSON) we warn, but do not block: CI will say so.
+if ! npx --yes "$PRETTIER" --write --log-level warn -- "${files[@]}" > /dev/null 2>&1; then
+	echo "pre-commit: Prettier could not process some file (invalid syntax?)." >&2
+	echo "   Check it with: npx $PRETTIER --check <file>" >&2
+fi
+
+# What Prettier touched now differs from the index: that is exactly what was reformatted.
+changed="$(git -c core.quotePath=false diff --name-only -- "${files[@]}")"
+
+if [ -n "$changed" ]; then
+	printf '%s\n' "$changed" | while IFS= read -r f; do
+		[ -n "$f" ] && git add -- "$f"
+	done
+	echo "pre-commit: formatted and re-staged into the commit:" >&2
+	printf '%s\n' "$changed" | sed 's/^/   · /' >&2
+fi
 
 exit 0

@@ -1,53 +1,85 @@
 # ==============================================================================
-# CI skeleton — STACK-NEUTRAL.
-# Rename it to `ci.yml` and replace the [*_COMMAND] steps with your project's
-# to enable it.
+# ⚠️  DELETE THIS BLOCK WHEN YOU ENABLE THE WORKFLOW — down to the ====== line below.
 #
-# Careful with the name: GitHub runs ANY `.yml`/`.yaml` file inside
-# `.github/workflows/`, no matter what else the name contains. That is why the
-# extension comes last: `.example` is not a format GitHub parses. Rename it to
-# `ci.example.yml` and it runs — passing green without testing anything,
-# because its steps are `echo`s.
+# These are instructions for enabling it. Once renamed to `ci.yml` they are
+# redundant, and worse: they keep telling you to rename a file already renamed.
+#
+# To enable it:
+#   1. Rename this file to `ci.yml`.
+#   2. Replace the [*_COMMAND] steps with your project's (they are in AGENTS.md →
+#      "Setup & commands", and the `/instantiate` skill takes them from
+#      docs/architecture/stack.md in its Step 6).
+#   3. Delete this header.
+#
+# MIND THE NAME: GitHub runs ANY `.yml`/`.yaml` file inside `.github/workflows/`,
+# no matter what else the name carries. `ci.example.yml` DID run (it showed up as a
+# green "CI" workflow, testing nothing). That is why the extension goes last:
+# `.example` is not a format GitHub parses.
 # ==============================================================================
+
+# ── WHY IT STARTS WITH A SINGLE JOB (this part stays) ────────────────────────
+# GitHub bills each job rounding up to the minute. Three twenty-second jobs cost
+# three minutes, not one. This skeleton starts with lint, tests and build as STEPS
+# of the same job, each with `!cancelled()` so a failure does not hide the ones
+# after it — you still see every problem at once, which was the only advantage of
+# splitting them.
+#
+# SPLIT THEM WHEN YOU MEASURE IT, not before: when a step really takes time and
+# blocks the others (a five-minute test run ahead of a twenty-second lint, or a
+# version matrix). There parallelism pays for itself. Before that, it only
+# multiplies the bill. See .github/workflows/README.md.
 
 name: CI
 
+# PRs only, on purpose: GitHub runs `pull_request` events against the **simulated
+# merge commit**, so the run that would fire on merging checks exactly the same
+# tree again. Duplicating costs twice and tells you no more.
 on:
-  push:
-    branches: [main, develop]
   pull_request:
     branches: [main, develop]
 
-jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      # - name: Set up environment
-      #   run: [SETUP_COMMAND]
-      - name: Lint
-        run: echo "Replace with [LINT_COMMAND]"
+# A new push to the PR cancels the previous run: active development is where most
+# of the budget goes.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
-  test:
-    name: Tests
+jobs:
+  ci:
+    name: CI
     runs-on: ubuntu-latest
+
+    # Uncomment if the project needs a database for the tests.
     # services:
     #   db:
-    #     image: [DATABASE_IMAGE]
+    #     image: postgres:16
+    #     env:
+    #       POSTGRES_PASSWORD: postgres
+    #     options: >-
+    #       --health-cmd pg_isready --health-interval 10s
+    #       --health-timeout 5s --health-retries 5
     #     ports: ["5432:5432"]
+
     steps:
       - uses: actions/checkout@v7
+
+      # Uncomment and adjust to the stack's runtime (setup-node, setup-ruby,
+      # setup-python, setup-go…). Enable its dependency cache: it is what saves the
+      # most time on every run.
       # - name: Set up environment
       #   run: [SETUP_COMMAND]
+
+      - name: Lint
+        if: ${{ !cancelled() }}
+        run: echo "Replace with [LINT_COMMAND]"
+
       - name: Tests
+        if: ${{ !cancelled() }}
+        # env:
+        #   DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
         run: echo "Replace with [TEST_COMMAND]"
 
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    needs: [lint, test]
-    steps:
-      - uses: actions/checkout@v7
+      # Delete it if the project has no build step.
       - name: Build
+        if: ${{ !cancelled() }}
         run: echo "Replace with [BUILD_COMMAND]"

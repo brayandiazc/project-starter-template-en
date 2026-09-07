@@ -2,10 +2,10 @@
 # Parity between variants — TEMPLATE-REPO ONLY.
 # Compares the file structure with the Spanish sibling variant so that no
 # change is left unported. The `if` condition keeps it from running in
-# instantiated projects; delete it anyway when you instantiate the template.
+# instantiated projects; the /instantiate skill removes it anyway.
 #
-# On a PR it is informational (continue-on-error): divergence is normal until
-# the equivalent change lands in the sibling variant.
+# On a PR it is informative (continue-on-error): divergence is normal until
+# the equivalent change lands in the sibling variant (/port-change skill).
 # ==============================================================================
 
 name: Parity between variants
@@ -20,15 +20,15 @@ on:
 jobs:
   parity:
     name: Parity with the sibling variant
-    if: github.repository == 'brayandiazc/project-starter-template-en'
+    if: github.repository == 'brayandiazc/project-starter-template-en-ai'
     runs-on: ubuntu-latest
     continue-on-error: ${{ github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v7
-      - name: Checkout the sibling variant (es)
+      - name: Checkout the sibling variant (es-ai)
         uses: actions/checkout@v7
         with:
-          repository: brayandiazc/project-starter-template-es
+          repository: brayandiazc/project-starter-template-es-ai
           path: .sibling
       - name: Compare structure
         run: bash .github/scripts/check-parity.sh .sibling
