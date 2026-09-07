@@ -11,6 +11,37 @@ tooling, not its life (see `TEMPLATE-USAGE.md`).
 
 ## [Unreleased]
 
+### Fixed
+
+- **Dependabot could not pass the CHANGELOG gate.** The `changelog` job requires an entry
+  from every PR that touches the project; the bot touches the manifest and the lockfile,
+  does not write changelogs and cannot learn to. Its PRs died with the build and the scans
+  green. The exception was already designed —the `sin-changelog` label— nothing was just
+  applying it: now they are born with it.
+- **The escape hatch only worked when applied before opening the PR.** `PR_LABELS` comes
+  from the event payload, so adding `sin-changelog` by hand triggered nothing and a re-run
+  replayed the old payload, without the label — exactly backwards from when you find out
+  you need it. `quality.yml` now listens for `labeled` and `unlabeled`. It costs a run per
+  label change; an emergency exit unusable in the emergency costs more.
+
+- **Nothing invoked `check-hooks-enabled.sh`.** It existed, had its cases in the test
+  bench, and no other line in the repository called it: both calls lived in skills this
+  variant does not have. And by design it cannot run in CI —it does not see anybody's
+  local config— nor inside `pre-push` —it only runs if the config it verifies is already
+  set—, so without an instruction calling it, nobody does. `TEMPLATE-USAGE.md` now invokes
+  it instead of handing you the bare `git config`.
+- **`TEMPLATE-USAGE.md` pointed at skills that do not exist here** (`/update-template`).
+  It now describes the step instead of delegating it to something that is not there.
+
+### Changed
+
+- **Dependabot PRs come grouped**, one with every bump instead of one per package. Merging
+  N separate bumps in a chain leaves a lockfile nobody ever built: git does not flag a
+  conflict —each bump touches a different spot in the file— and CI does not see it either,
+  because each PR is built on its own branch and never on the result of merging them all.
+  The price, written next to it in `dependabot.yml`: if one bump in the group breaks, the
+  whole group is blocked.
+
 ## [2.1.0] - 2026-09-07
 
 ### Added
