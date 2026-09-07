@@ -1,8 +1,0 @@
-# Configure the sponsorship channels shown on your repository.
-# Delete the ones you don't use. Documentation:
-# https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
-
-github: [GITHUB_USER]
-# ko_fi: [KOFI_USER]
-# patreon: [PATREON_USER]
-# custom: ["[CUSTOM_URL]"]

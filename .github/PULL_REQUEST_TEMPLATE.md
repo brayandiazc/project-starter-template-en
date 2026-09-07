@@ -1,54 +1,49 @@
 # Description
 
-Summary of the changes and the problem they solve.
+What changes and what problem it solves. If it implements a spec, link it.
 
-## Type of Change
+## Type of change
 
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
-- [ ] Refactoring
+- [ ] Refactor (no behavior change)
 - [ ] Documentation
-- [ ] Configuration / DevOps
+- [ ] Configuration / tooling
 
-## Changes Made
+## How to check it works
 
-**Before**: Current behavior of the system.
-
-**After**: New behavior implemented.
-
-## Testing Instructions
+Concrete steps to verify the result, not the code:
 
 1.
 2.
-3.
 
-## Checklist
+## What no machine checks
 
-- [ ] The code follows the project's style guidelines
-- [ ] Self-review completed
-- [ ] Code commented in complex sections
-- [ ] Tests run successfully
-- [ ] New tests added (if applicable)
-- [ ] No regressions in existing functionality
-- [ ] Documentation updated (if applicable)
-- [ ] Meets the Definition of Done (`docs/conventions/definition-of-done.md`)
+> CI already verifies formatting, links, the CHANGELOG entry and the test suite: there
+> are no checkboxes for that. Only the things that **fail silently** go here — they pass
+> the tests and produce no error in the monitor (`docs/conventions/ai-agents.md`).
 
-## Related Issues
-
-Closes #
-Relates to #
+- [ ] **Data schema reviewed by hand** — mandatory if there is a migration. It is the
+      most expensive thing to change later and the only one neither tests nor monitoring
+      catch.
+- [ ] If it touches **authorization**: tested with a role other than your own.
+- [ ] If it touches **queues or mobile**: create operations are idempotent.
+- [ ] If it touches **UI**: the four states (loading, empty, error, success) and both themes.
+- [ ] If there is a **custom component**: focus trap, Escape, ARIA and keyboard navigation.
+- [ ] Affected documentation updated and the roadmap item ticked if the spec completes it.
 
 ## Impact
 
-- **Performance**: None / Improvement / Degradation
-- **Breaking changes**: Yes / No
+- **Breaking change**: Yes / No — if yes, what breaks and what has to be done
 - **Requires migration**: Yes / No
+- **Something grows without a bound** (storage, compute, model calls): Yes / No — if yes,
+  is it in the price?
 
 ## Evidence
 
-Screenshots, GIFs, or videos demonstrating the changes (if applicable).
+Screenshots or video if there is UI — **in both themes**.
 
-## Notes for Reviewers
+## Issues
 
-Specific areas that need attention or design decisions made.
+Closes #

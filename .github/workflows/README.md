@@ -1,47 +1,63 @@
-# CI/CD Workflows
+# CI/CD workflows
 
-This folder contains the project's [GitHub Actions](https://docs.github.com/actions)
-workflows.
+This repository's [GitHub Actions](https://docs.github.com/actions) workflows.
 
-## Active workflows (stack-agnostic)
+## Active (stack-agnostic)
 
-They work as is, regardless of the project's language — don't delete them when
-instantiating:
+They work as-is, whatever the project's language — do not delete them when instantiating:
 
-- [`quality.yml`](quality.yml) — documentation quality: Markdown format
-  (Prettier), internal links, placeholders, and the test suite for the repo's
-  scripts (see [`../scripts/`](../scripts)).
-- [`secret-scan.yml`](secret-scan.yml) — secret scanning with
-  [gitleaks](https://github.com/gitleaks/gitleaks) over the history.
+- [`quality.yml`](quality.yml) — documentation and tooling health: Markdown formatting
+  (Prettier), internal links, placeholders, README instructions, raw colors in
+  the views, template inheritance, the [`../scripts/`](../scripts) test suite and, on
+  every PR, the `CHANGELOG.md` entry under `## [Unreleased]` — the `no-changelog` label
+  is the explicit exception. On PRs toward `main` it adds the release step: nothing
+  reaches production without a cut version.
+- [`secret-scan.yml`](secret-scan.yml) — history scanning with
+  [gitleaks](https://github.com/gitleaks/gitleaks).
+- [`release.yml`](release.yml) — on merging into `main`, it creates the `vX.Y.Z` tag and
+  the GitHub release with that changelog section's notes. **It does not publish a version
+  inherited from the template** (it consults `check-inheritance.sh --publishable-version`):
+  a `main` published before resetting the CHANGELOG created a foreign tag that later made
+  the project's own release disappear silently.
+- [`template-update-check.yml`](template-update-check.yml) — **it only acts on
+  instantiated projects** (it needs `.template-origin`). Weekly it compares the tooling
+  with the origin template's and opens an issue if there are improvements.
 
-## Template-repo only
+## Included skeleton
 
-- [`template-parity.yml`](template-parity.yml) — compares the structure with the
-  sibling variant in the other language. It has a repository-name guard so it
-  doesn't run in instantiated projects; delete it anyway when you instantiate
-  the template.
+- [`ci.yml.example`](ci.yml.example) — a neutral pipeline (lint → test → build). The
+  `.example` extension goes **last on purpose**: GitHub runs any `.yml`/`.yaml` file
+  living in this folder, no matter what else the name carries. Rename it to `ci.yml` and
+  replace the `[*_COMMAND]` placeholders with your stack's. Until then, the repository
+  runs no code tests — only the documentation checks.
 
-## Included Skeleton
+## Rules of this folder
 
-- [`ci.yml.example`](ci.yml.example) — a neutral CI pipeline (lint → test → build).
-  The `.example` extension comes **last on purpose**: GitHub runs any `.yml`/`.yaml`
-  file living in this folder, no matter what else the name contains. When you adapt it
-  to your stack, rename it to `ci.yml`.
+**If a file must not run, it cannot end in `.yml` or `.yaml`.** GitHub runs any file
+that lives here, no matter what else the name carries. The test suite verifies it.
 
-> Rule for this folder: if a file must not run, it **cannot end in `.yml` or
-> `.yaml`**. The test suite checks this.
+**One job per workflow unless there is a measured reason to split it.** GitHub bills each
+job rounding up to the minute, so nine two-second jobs cost nine minutes. `quality.yml`
+used to run that way and is now a single job with `!cancelled()` on every step —you still
+see every failure at once— plus `concurrency` with `cancel-in-progress`. Splitting only
+makes sense when a step really takes time and blocks the others.
 
-## Recommended Workflows
+**One run per change, not two.** `quality.yml` triggers **only on `pull_request`**:
+GitHub runs those events against the _simulated merge commit_, so the run that fired on
+merging checked the same tree again. It was half the repository's runs. `secret-scan.yml`
+does keep `push` on `main`, because without branch protection nothing technically stops a
+direct push to production and there the history scan is a real backstop.
 
-| Workflow                    | Purpose                                       |
-| --------------------------- | --------------------------------------------- |
-| `ci.yml`                    | Lint, tests, and build on every push/PR.      |
-| `labeler.yml`               | Auto-labeling of PRs (uses `../labeler.yml`). |
-| `dependabot-auto-merge.yml` | Auto-merge Dependabot PRs (patches).          |
-| `deploy.yml`                | Deployment (depends on your infrastructure).  |
+**The first filter is local.** The `.githooks/pre-push` hook runs these same checks in
+~15 seconds before publishing, so CI is the safety net and not the verification loop (see
+`docs/conventions/quality-tooling.md`).
+
+> **The cost of this, plainly:** a commit that reaches `develop` **without going through
+> a PR** is verified by nobody on the server. Only `pre-push` prevents it, and only if
+> that clone has `core.hooksPath` set. If one day there is branch protection —it requires
+> a public repo or a Pro plan— that is the barrier that really closes the gap.
 
 ## Secrets
 
-Define the secrets your workflows need (deploy keys, tokens, etc.) in
-**Settings → Secrets and variables → Actions**. See
-[`../../docs/conventions/secrets.md`](../../docs/conventions/secrets.md).
+Define them under **Settings → Secrets and variables → Actions**. The values come from
+your credential manager — see [`../../docs/conventions/secrets.md`](../../docs/conventions/secrets.md).

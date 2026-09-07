@@ -1,62 +1,59 @@
-# GitHub Label Configuration
+# Repository labels
 
-Labels categorize Issues and Pull Requests. The [`labeler.yml`](labeler.yml) file
-automatically assigns labels to PRs based on the files modified.
+Labels categorize issues and pull requests. This file is the source of truth:
+[`scripts/setup-labels.sh`](scripts/setup-labels.sh) **parses these tables** and creates
+them on GitHub — there is no other copy to maintain.
 
-## Automatic Labels (assigned by the labeler)
+There is no path-based auto-labeling: in a one-person repository, a label you have to
+apply by hand and nobody queries is noise. The ones here are either applied by an
+automation, or they change CI behavior, or they are useful to search by.
 
-These must exist in the repository for the labeler to work.
+## Applied automatically
 
-| Label           | Color     | Description                         |
-| --------------- | --------- | ----------------------------------- |
-| `documentation` | `#0075CA` | Documentation changes               |
-| `frontend`      | `#0052CC` | UI / client changes                 |
-| `styles`        | `#BFD4F2` | CSS / styling changes               |
-| `backend`       | `#006B75` | Server / API / logic changes        |
-| `database`      | `#5319E7` | Migrations, schema, or seeds        |
-| `testing`       | `#FBCA04` | Test changes                        |
-| `dependencies`  | `#0366D6` | Dependency updates                  |
-| `config`        | `#D4C5F9` | Configuration changes               |
-| `ci-cd`         | `#F9D0C4` | CI/CD, workflow, and Docker changes |
-| `github`        | `#333333` | GitHub template and config changes  |
+| Label          | Color     | Who applies it                        |
+| -------------- | --------- | ------------------------------------- |
+| `dependencies` | `#0366D6` | Dependabot (`dependabot.yml`)         |
+| `ci-cd`        | `#F9D0C4` | Dependabot, on GitHub Actions updates |
 
-## Manual Labels
+## Type
 
-| Label              | Color     | Description                       |
-| ------------------ | --------- | --------------------------------- |
-| `bug`              | `#D73A4A` | Something isn't working correctly |
-| `enhancement`      | `#A2EEEF` | New feature or improvement        |
-| `breaking change`  | `#B60205` | Changes that break compatibility  |
-| `needs review`     | `#FBCA04` | Requires review                   |
-| `work in progress` | `#FEF2C0` | Work in progress                  |
-| `ready for merge`  | `#0E8A16` | Approved and ready to merge       |
-| `blocked`          | `#B60205` | Blocked by dependencies           |
-| `help wanted`      | `#008672` | External help needed              |
-| `good first issue` | `#7057FF` | Good for new contributors         |
-| `duplicate`        | `#CFD3D7` | Duplicate issue or PR             |
-| `invalid`          | `#E4E669` | Not valid or not applicable       |
-| `wontfix`          | `#FFFFFF` | This will not be worked on        |
-| `question`         | `#D876E3` | Request for information           |
+| Label           | Color     | When                           |
+| --------------- | --------- | ------------------------------ |
+| `bug`           | `#D73A4A` | Something is not working right |
+| `enhancement`   | `#A2EEEF` | New feature or improvement     |
+| `documentation` | `#0075CA` | Documentation-only changes     |
+| `question`      | `#D876E3` | Request for information        |
 
-## Creating Labels
+## Status
 
-### Option 1: Automatic script (recommended)
+| Label             | Color     | When                       |
+| ----------------- | --------- | -------------------------- |
+| `breaking change` | `#B60205` | Breaks compatibility       |
+| `blocked`         | `#B60205` | Blocked by a dependency    |
+| `duplicate`       | `#CFD3D7` | Already exists             |
+| `wontfix`         | `#FFFFFF` | This will not be worked on |
+
+## CI exceptions
+
+| Label          | Color     | Effect                                                                           |
+| -------------- | --------- | -------------------------------------------------------------------------------- |
+| `no-changelog` | `#C5DEF5` | The `changelog` job in `quality.yml` lets the PR through with no CHANGELOG entry |
+
+> It is the **only** label that changes the CI result. Use it with a reason written in
+> the PR: the rule is that every change gets documented.
+
+## Creating the labels
 
 ```bash
-gh auth login
 bash .github/scripts/setup-labels.sh
 ```
 
-### Option 2: Manually on GitHub
+It requires an authenticated [`gh`](https://cli.github.com). It is idempotent: it
+creates the missing ones and updates the color and description of the existing ones.
 
-1. Go to your repository → **Issues** → **Labels**.
-2. Click **New label**.
-3. Create each label with the name, color, and description from the tables above.
+## Adding a new one
 
-## Customize
-
-To add a new automatic label:
-
-1. Create the label on GitHub (manually or with the script).
-2. Add the rule in [`labeler.yml`](labeler.yml).
-3. Document it in this file and in `setup-labels.sh`.
+1. Add it to the matching table in this file (name and color between backticks; the
+   third column acts as the description) and run the script again.
+2. If no automation applies it and it does not affect CI, ask yourself first whether you
+   are actually going to use it.

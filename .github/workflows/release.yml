@@ -1,6 +1,6 @@
 # release.yml — automatically publishes the GitHub release when main is updated.
 #
-# Flow (CONTRIBUTING.md): before merging develop → main, cut the
+# Flow (CONTRIBUTING.md + /release skill): before merging develop → main, cut the
 # version in CHANGELOG.md (move Unreleased to "## [X.Y.Z] - date"). On merge to
 # main, this workflow detects that version and, if it has no tag yet, creates the
 # vX.Y.Z tag and the GitHub release with that section's notes. No merge to
@@ -11,6 +11,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+
+# One release at a time: two pushes to main in a row before the first finishes would
+# both see "version with no tag" and the second `gh release create` would fail.
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -35,6 +41,16 @@ jobs:
             exit 0
           fi
           version="$(sed -E 's/^## \[([0-9]+\.[0-9]+\.[0-9]+)\].*/\1/' <<<"$line")"
+          # Never publish a version OF THE TEMPLATE. That happens when `main` is
+          # published before resetting the CHANGELOG: main points at the initial
+          # commit and this workflow, fired by that push, runs against that branch's
+          # content —not against what you have in front of you— and creates the tag
+          # and the release with the origin repository's notes. The criterion lives
+          # in check-inheritance.sh, which already knows what inheritance is.
+          if ! bash .github/scripts/check-inheritance.sh --publishable-version; then
+            echo "publish=0" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
           if git rev-parse "v$version" >/dev/null 2>&1; then
             echo "v$version already tagged; nothing to publish."
             echo "publish=0" >>"$GITHUB_OUTPUT"
