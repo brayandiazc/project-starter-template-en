@@ -11,6 +11,8 @@ tooling, not its life (see `TEMPLATE-USAGE.md`).
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-09-07
+
 ### Fixed
 
 - **The parity workflow never ran in this variant.** Its `if` condition and the sibling
@@ -93,6 +95,7 @@ It is not reconstructed here: making it up would be worse than not having it.
 
 <!--
 Version comparison links:
-[Unreleased]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/brayandiazc/project-starter-template-en/compare/v1.4.0...v2.0.0
 -->
