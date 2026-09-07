@@ -5,7 +5,13 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+This is the CHANGELOG of the template repo [brayandiazc/project-starter-template-en](https://github.com/brayandiazc/project-starter-template-en).
+It is reset when you instantiate: your project inherits the template's
+tooling, not its life (see `TEMPLATE-USAGE.md`).
+
 ## [Unreleased]
+
+## [2.0.0] - 2026-09-07
 
 ### Added
 
@@ -70,14 +76,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Security
 
-## [0.1.0] - [DATE]
+## v1.4.0 and earlier
 
-### Added
-
-- Initial release.
+The history up to `v1.4.0` lives in the repository's [release notes](https://github.com/brayandiazc/project-starter-template-en/releases).
+It is not reconstructed here: making it up would be worse than not having it.
 
 <!--
-Version comparison links (adjust to your repository):
-[Unreleased]: [REPOSITORY_URL]/compare/v0.1.0...HEAD
-[0.1.0]: [REPOSITORY_URL]/releases/tag/v0.1.0
+Version comparison links:
+[Unreleased]: https://github.com/brayandiazc/project-starter-template-en/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/brayandiazc/project-starter-template-en/compare/v1.4.0...v2.0.0
 -->
