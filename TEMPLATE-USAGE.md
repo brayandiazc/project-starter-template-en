@@ -68,11 +68,15 @@ now you know which they are instead of discovering it once they are gone.
   earlier version, some document of yours may now be called something else. Bringing in
   the new one without deleting the old one **leaves both**, with different content and
   without any check noticing.
-- Enable the git hooks: `git config core.hooksPath .githooks`.
+- Enable the git hooks: `bash .github/scripts/check-hooks-enabled.sh --fix`. It does the
+  same as `git config core.hooksPath .githooks` and also verifies they are executable.
+  This check cannot run in CI —it does not see anybody's local config— nor inside
+  `pre-push` —it only runs if the config it verifies is already set—, so if you do not
+  call it here, nobody does.
 - Write `.template-origin` (repo, commit, date and `versions=` with the template's
   CHANGELOG versions — without them, `check-inheritance.sh` falls back to a date-based
-  criterion that may accuse a release of yours cut the same day) so `/update-template`
-  and the notification workflow work from here on.
+  criterion that may accuse a release of yours cut the same day) so the notification
+  workflow works from here on.
 - Fill the new `docs/` with what you already know about the project instead of leaving
   placeholders.
 - Commit on the branch, open a PR and then delete `TEMPLATE-USAGE.md`.
