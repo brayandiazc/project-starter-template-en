@@ -11,6 +11,8 @@ CHECK_PLACEHOLDERS="$REPO_ROOT/.github/scripts/check-placeholders.sh"
 CHECK_LINKS="$REPO_ROOT/.github/scripts/check-links.sh"
 CHECK_CHANGELOG="$REPO_ROOT/.github/scripts/check-changelog.sh"
 CHECK_RELEASE="$REPO_ROOT/.github/scripts/check-release.sh"
+CHECK_GIT_FLOW="$REPO_ROOT/.github/scripts/check-git-flow.sh"
+CHECK_WF_IDENTITY="$REPO_ROOT/.github/scripts/check-workflow-identity.sh"
 CHECK_INSTRUCTIONS="$REPO_ROOT/.github/scripts/check-instructions.sh"
 CHECK_HOOKS="$REPO_ROOT/.github/scripts/check-hooks-enabled.sh"
 
@@ -1070,6 +1072,108 @@ if [ -d "$WORKFLOWS" ]; then
   [ -z "$runnable_examples" ]
   check "no example workflow ends in .yml/.yaml" 0 $?
   [ -n "$runnable_examples" ] && printf '     · %s\n' $runnable_examples
+fi
+
+# ── check-git-flow.sh ─────────────────────────────────────────────────────────
+# The rule "working branches are born from develop" cannot be checked if develop
+# is not published. The failure lands late — when opening the PR — and its
+# apparent fix (opening it against main) is what the convention forbids.
+if [ -f "$CHECK_GIT_FLOW" ]; then
+  echo "check-git-flow.sh:"
+
+  # A repo with a real remote: a local bare repo plays 'origin'.
+  make_repo_with_remote() {
+    mkdir -p "$TMP/$1"
+    git init -q --bare "$TMP/$1-remote.git"
+    git init -q "$TMP/$1"
+    git -C "$TMP/$1" remote add origin "$TMP/$1-remote.git"
+    printf 'Working branches are born from develop.\n' >"$TMP/$1/CONTRIBUTING.md"
+    git -C "$TMP/$1" add -A >/dev/null
+    git -C "$TMP/$1" -c user.email=t@t -c user.name=t commit -qm x
+    git -C "$TMP/$1" push -q origin HEAD:refs/heads/main
+  }
+
+  make_repo_with_remote gf-without
+  (bash "$CHECK_GIT_FLOW" "$TMP/gf-without" >/dev/null 2>&1)
+  check "remote without develop → fails" 1 $?
+
+  git -C "$TMP/gf-without" push -q origin HEAD:refs/heads/develop
+  (bash "$CHECK_GIT_FLOW" "$TMP/gf-without" >/dev/null 2>&1)
+  check "remote with develop → passes" 0 $?
+
+  # A develop that is only local does not count: the PR opens against the remote.
+  make_repo_with_remote gf-local
+  git -C "$TMP/gf-local" branch develop >/dev/null 2>&1
+  (bash "$CHECK_GIT_FLOW" "$TMP/gf-local" >/dev/null 2>&1)
+  check "develop only local → fails" 1 $?
+
+  # A project that rewrote CONTRIBUTING to work on main alone.
+  make_repo_with_remote gf-trunk
+  printf 'Everything comes off main.\n' >"$TMP/gf-trunk/CONTRIBUTING.md"
+  (bash "$CHECK_GIT_FLOW" "$TMP/gf-trunk" >/dev/null 2>&1)
+  check "CONTRIBUTING without 'develop' → no opinion" 0 $?
+
+  # Without a remote there is nothing to check: it fails open.
+  mkdir -p "$TMP/gf-no-remote"
+  git init -q "$TMP/gf-no-remote"
+  (bash "$CHECK_GIT_FLOW" "$TMP/gf-no-remote" >/dev/null 2>&1)
+  check "repo without remote → no opinion" 0 $?
+
+  mkdir -p "$TMP/gf-no-git"
+  (bash "$CHECK_GIT_FLOW" "$TMP/gf-no-git" >/dev/null 2>&1)
+  check "folder without git → no opinion" 0 $?
+fi
+
+# ── check-workflow-identity.sh ────────────────────────────────────────────────
+# A workflow copied between repositories brings its `if: github.repository ==`
+# along. It does not fail: it skips. And a grey "skipping" reads almost like a
+# green.
+if [ -f "$CHECK_WF_IDENTITY" ]; then
+  echo "check-workflow-identity.sh:"
+
+  make_wf() {  # $1 = name, $2 = slug named in the condition
+    mkdir -p "$TMP/$1/.github/workflows"
+    : >"$TMP/$1/TEMPLATE-USAGE.md"
+    printf "jobs:\n  x:\n    if: github.repository == '%s'\n" "$2" \
+      >"$TMP/$1/.github/workflows/a.yml"
+  }
+
+  make_wf wf-foreign other/repo
+  (GITHUB_REPOSITORY=me/mine bash "$CHECK_WF_IDENTITY" "$TMP/wf-foreign" >/dev/null 2>&1)
+  check "condition naming another repository → fails" 1 $?
+
+  make_wf wf-own me/mine
+  (GITHUB_REPOSITORY=me/mine bash "$CHECK_WF_IDENTITY" "$TMP/wf-own" >/dev/null 2>&1)
+  check "condition naming this repository → passes" 0 $?
+
+  # Double quotes: YAML takes both and the rule does not change.
+  mkdir -p "$TMP/wf-double/.github/workflows"
+  : >"$TMP/wf-double/TEMPLATE-USAGE.md"
+  printf 'jobs:\n  x:\n    if: github.repository == "other/repo"\n' \
+    >"$TMP/wf-double/.github/workflows/a.yml"
+  (GITHUB_REPOSITORY=me/mine bash "$CHECK_WF_IDENTITY" "$TMP/wf-double" >/dev/null 2>&1)
+  check "condition in double quotes → also detected" 1 $?
+
+  # In an instantiated project the condition names the template ON PURPOSE:
+  # that is what keeps the workflow from running there. No TEMPLATE-USAGE.md,
+  # no opinion.
+  make_wf wf-instance other/repo
+  rm -f "$TMP/wf-instance/TEMPLATE-USAGE.md"
+  (GITHUB_REPOSITORY=me/mine bash "$CHECK_WF_IDENTITY" "$TMP/wf-instance" >/dev/null 2>&1)
+  check "instantiated project (no TEMPLATE-USAGE.md) → no opinion" 0 $?
+
+  # Without knowing which repository this is, there is nothing to compare to.
+  make_wf wf-no-slug other/repo
+  (cd "$TMP/wf-no-slug" && GITHUB_REPOSITORY= bash "$CHECK_WF_IDENTITY" . >/dev/null 2>&1)
+  check "no remote and no GITHUB_REPOSITORY → no opinion" 0 $?
+
+  # A .yml.example does not run, but it gets copied all the same: also checked.
+  mkdir -p "$TMP/wf-example/.github/workflows"
+  : >"$TMP/wf-example/TEMPLATE-USAGE.md"
+  printf "jobs:\n  x:\n    if: github.repository == 'other/repo'\n" \
+    >"$TMP/wf-example/.github/workflows/ci.yml.example"
+  (GITHUB_REPOSITORY=me/mine bash "$CHECK_WF_IDENTITY" "$TMP/wf-example" >/dev/null 2>&1)
+  check "condition in a .yml.example → also checked" 1 $?
 fi
 
 # ── Summary ───────────────────────────────────────────────────────────────────

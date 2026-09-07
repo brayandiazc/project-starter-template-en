@@ -69,6 +69,18 @@ jobs:
         if: ${{ !cancelled() }}
         run: bash .github/scripts/check-inheritance.sh
 
+      # The rule "branches are born from develop" cannot be checked if develop
+      # is not published, and the failure only shows up when opening the PR.
+      - name: "develop exists on the remote"
+        if: ${{ !cancelled() }}
+        run: bash .github/scripts/check-git-flow.sh
+
+      # A copied workflow brings its `if: github.repository ==` along: then it
+      # does not fail, it skips — and a grey "skipping" reads almost like green.
+      - name: Workflow identity
+        if: ${{ !cancelled() }}
+        run: bash .github/scripts/check-workflow-identity.sh
+
       - name: Design system — views with no raw color
         if: ${{ !cancelled() }}
         run: bash .github/scripts/check-design-tokens.sh

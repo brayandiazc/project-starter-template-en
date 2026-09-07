@@ -8,7 +8,9 @@ They work as-is, whatever the project's language — do not delete them when ins
 
 - [`quality.yml`](quality.yml) — documentation and tooling health: Markdown formatting
   (Prettier), internal links, placeholders, README instructions, raw colors in
-  the views, template inheritance, the [`../scripts/`](../scripts) test suite and, on
+  the views, template inheritance, that `develop` exists on the remote, that no
+  workflow claims to be another repository, the [`../scripts/`](../scripts) test
+  suite and, on
   every PR, the `CHANGELOG.md` entry under `## [Unreleased]` — the `no-changelog` label
   is the explicit exception. On PRs toward `main` it adds the release step: nothing
   reaches production without a cut version.
