@@ -20,9 +20,20 @@ updates:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 5
+    # One PR with every action instead of one per action: there is no lockfile
+    # here, so grouping is just less noise. Where it really matters is below.
+    groups:
+      actions:
+        patterns:
+          - "*"
     labels:
       - "dependencies"
       - "ci-cd"
+      # Dependabot does not write the CHANGELOG, and cannot learn to: without
+      # this, the `changelog` job in quality.yml takes down ALL of its PRs with
+      # everything else green. The exception was already designed; now its PRs
+      # are born with it.
+      - "sin-changelog"
     commit-message:
       prefix: "chore"
       include: "scope"
@@ -36,7 +47,17 @@ updates:
   #   target-branch: "develop"
   #   schedule:
   #     interval: "weekly"
-  #   labels: ["dependencies"]
+  #   # ONE PR with every bump, not one per package. Merging N separate bumps in
+  #   # a chain leaves a lockfile nobody ever built: git does not flag a
+  #   # conflict —each bump touches a different spot in the file— and CI does
+  #   # not see it either, because each PR is built on its own branch, never on
+  #   # the result of merging them all. Grouped, that state DOES go through the
+  #   # build. The price: if one bump in the group breaks, the whole group is
+  #   # blocked and you have to find out which one.
+  #   groups:
+  #     dependencies:
+  #       patterns: ["*"]
+  #   labels: ["dependencies", "sin-changelog"]
   #
   # - package-ecosystem: "pip"        # Python
   #   directory: "/"

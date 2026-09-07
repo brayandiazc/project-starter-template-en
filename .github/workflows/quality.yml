@@ -35,6 +35,15 @@ name: Quality
 on:
   pull_request:
     branches: [main, develop]
+    # `labeled`/`unlabeled` are not spare: `PR_LABELS` comes from the event
+    # payload (`github.event.pull_request.labels`). Without them, adding the
+    # `sin-changelog` label by hand triggers nothing, and a re-run replays the
+    # old payload — without the label. The escape hatch only worked when
+    # applied BEFORE opening the PR, exactly backwards from when you find out
+    # you need it.
+    #
+    # The price: every label change re-runs the whole job.
+    types: [opened, synchronize, reopened, labeled, unlabeled]
 
 # A new push to the PR cancels the previous run: active development is where most
 # of the budget goes.
