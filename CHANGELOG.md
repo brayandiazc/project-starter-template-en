@@ -11,6 +11,28 @@ tooling, not its life (see `TEMPLATE-USAGE.md`).
 
 ## [Unreleased]
 
+## [2.3.1] - 2026-09-22
+
+### Fixed
+
+- **`check-design-tokens.sh` did not look at `design/`, the only place in the template
+  with views.** `design/` was not in `DIRS` and the root is only walked one level deep,
+  so in this repository the check came out **green saying "found no views or styles to
+  check"** without opening a single file. The swatch gallery that teaches the rule was
+  the only one that did not have to follow it. Turning it on surfaced two more defects
+  in the check itself, both fixed:
+  - **`//` comments inside a `<script>` were not stripped** in markup files, only in
+    `.js`/`.css`. Documenting the rule violated it.
+  - **A function of your own named `rgb()` counted as a color.** A CSS color always
+    opens with a number, a sign or `from`; `rgb(color)` opens with an identifier.
+
+  Five new tests cover the three cases and the pair that must not change.
+
+### Changed
+
+- **`TEMPLATE-USAGE.md` states the template's maintenance status.** A repository with
+  recent commits reads as active even when it is not, and that is a promise nobody made.
+
 ## [2.3.0] - 2026-09-07
 
 ### Added
