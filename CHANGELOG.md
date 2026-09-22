@@ -11,6 +11,8 @@ tooling, not its life (see `TEMPLATE-USAGE.md`).
 
 ## [Unreleased]
 
+## [2.3.1] - 2026-09-22
+
 ### Fixed
 
 - **`check-design-tokens.sh` did not look at `design/`, the only place in the template
