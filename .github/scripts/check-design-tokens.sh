@@ -23,7 +23,14 @@ cd "$ROOT"
 
 # Usual view folders, covering the most common conventions:
 # app/views and app/components, templates, src, components, pages, layouts.
-DIRS="app/views app/components templates src components pages layouts"
+#
+# And `design/`, which was the most awkward hole: the template ships its own swatch
+# gallery there (`preview.html`) and the check did NOT look at it — `design/` was not in
+# the list and the root is only walked one level deep. In the template repository, the
+# only place with views, the check came out green saying "found no views or styles to
+# check" without opening a single file. The example that teaches the rule is precisely
+# the one that has to follow it.
+DIRS="app/views app/components templates src components pages layouts design"
 # `css`, `js` and `ts` were not there, and that was the big hole: **CSS is where raw
 # colors live in ANY stack**. A project with app/assets/stylesheets/*.css was not
 # checked either, and one with no framework —views as text templates in .js, styles in
@@ -104,6 +111,17 @@ def strip_comments(text, path):
         patterns.append(r"(?<!:)//[^\n]*")
     for p in patterns:
         text = re.sub(p, blank, text, flags=re.S)
+    # A markup file carries JavaScript inside <script>, and there comments are `//`.
+    # Without this, the header that EXPLAINS the rule ("we convert oklch() to RGB")
+    # counted as a violation: the same failure the exclusion above exists to avoid,
+    # one file type further along.
+    if ext in ("html", "erb", "j2", "jinja", "vue", "astro"):
+        text = re.sub(
+            r"<script\b[^>]*>.*?</script>",
+            lambda m: re.sub(r"(?<!:)//[^\n]*", blank, m.group(0)),
+            text,
+            flags=re.S | re.I,
+        )
     return text
 
 # Exception: third-party logos. A brand logo carries ITS colors —Google, GitHub,
@@ -131,7 +149,11 @@ patterns = [
     (rf"\$(?:{palette})-\d{{2,3}}\b", "raw palette variable"),
     (r"(?:bg|text|border|fill|stroke)-\[[^\]]+\]", "arbitrary value"),
     (r"#[0-9a-fA-F]{3}(?![0-9a-zA-Z_-])|#[0-9a-fA-F]{6}(?![0-9a-zA-Z_-])", "hex color"),
-    (r"\b(?:rgba?|hsla?|oklch)\(", "inline color"),
+    # A CSS color always opens with a number, a sign or `from` (relative colors):
+    # `rgb(255 0 0)`, `oklch(.7 .1 200)`, `rgb(from var(--x) r g b)`. A function of
+    # YOUR OWN named `rgb(color)` opens with an identifier, and was counted as a
+    # violation — which happens as soon as a view computes contrast.
+    (r"\b(?:rgba?|hsla?|oklch)\(\s*(?:from\b|[-+.\d])", "inline color"),
 ]
 
 for n, line in enumerate(strip_comments(strip_brands(src), path).split("\n"), 1):

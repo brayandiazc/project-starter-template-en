@@ -2,6 +2,11 @@
 
 This guide explains how to turn this template into your project's real documentation. Once instantiated, **you can delete this file** (`TEMPLATE-USAGE.md`).
 
+> **Maintenance status.** This template no longer receives improvements actively. It
+> stays published and working —and it is perfectly usable— but fixes land when someone
+> brings them, not on a cadence. Keep that in mind before resting something that needs
+> continuous maintenance on it.
+
 ## 1. What it is and what it is not
 
 - **It is** a documentation base ready to start any project: folder structure, governance files and document skeletons with placeholders.
