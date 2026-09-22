@@ -668,6 +668,31 @@ if [ -f "$CHECK_DESIGN" ]; then
   printf ':root { --color-primary: #0a7a9d; }\n' >"$TMP/dz-tokens/src/tokens.css"
   run_design dz-tokens; check "tokens.css defines the colors → exempt" 0 $?
 
+  # ── design/ is checked like any other views folder ─────────────────────────
+  design_repo dz-design design/preview.html
+  printf '<div style="color:#ff0000">x</div>\n' >"$TMP/dz-design/design/preview.html"
+  run_design dz-design; check "hex in design/preview.html → fails" 1 $?
+
+  mkdir -p "$TMP/dz-design-tokens/design"
+  printf ':root { --color-primary: oklch(0.55 0.1 200); }\n' \
+    >"$TMP/dz-design-tokens/design/tokens.css"
+  run_design dz-design-tokens; check "design/tokens.css → still exempt" 0 $?
+
+  design_repo dz-script design/v.html
+  printf '<script>\n// we convert oklch() to rgb() by reading the pixel\nconst a = 1;\n</script>\n' \
+    >"$TMP/dz-script/design/v.html"
+  run_design dz-script; check "// comment inside <script> → does not count" 0 $?
+
+  design_repo dz-fn design/v.html
+  printf '<script>\nfunction rgb(color) { return color; }\nconst x = rgb(color);\n</script>\n' \
+    >"$TMP/dz-fn/design/v.html"
+  run_design dz-fn; check "own function rgb(color) → is not a color" 0 $?
+
+  design_repo dz-fn-real design/v.html
+  printf '<script>\nel.style.color = "rgb(255, 0, 0)";\n</script>\n' \
+    >"$TMP/dz-fn-real/design/v.html"
+  run_design dz-fn-real; check "rgb(255, 0, 0) in <script> → still fails" 1 $?
+
   # Documenting the rule cannot violate the rule: comments never reach the browser.
   # This was a real false positive — the header of a stylesheet spelling out the
   # forbidden patterns showed up as a finding.
